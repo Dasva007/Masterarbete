@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Rörelse i vardagen</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F3EE;
+    --warm-white: #FDFAF6;
+    --text-dark: #1C1A17;
+    --text-mid: #4A4540;
+    --text-light: #7A7570;
+    --border: #DDD8D0;
+    --shadow: rgba(28,26,23,0.08);
+
+    /* Variant A – Autonomi */
+    --a-primary: #2D6A4F;
+    --a-accent: #52B788;
+    --a-light: #D8F3DC;
+    --a-btn: #2D6A4F;
+    --a-btn-hover: #1B4332;
+
+    /* Variant K – Kompetens */
+    --k-primary: #1D3D6B;
+    --k-accent: #4A90D9;
+    --k-light: #D6E8FA;
+    --k-btn: #1D3D6B;
+    --k-btn-hover: #122548;
+
+    /* Variant T – Tillhörighet */
+    --t-primary: #7B3F6E;
+    --t-accent: #C77DBA;
+    --t-light: #F3D8EE;
+    --t-btn: #7B3F6E;
+    --t-btn-hover: #5A2D51;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Variant selector (researcher tool) */
+  .variant-bar {
+    width: 100%;
+    background: var(--text-dark);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .variant-bar button {
+    flex: 1;
+    max-width: 140px;
+    padding: 10px 8px;
+    border: none;
+    background: transparent;
+    color: #aaa;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+  }
+  .variant-bar button.active { color: #fff; border-bottom-color: #fff; }
+  .variant-bar button:hover { color: #ddd; }
+
+  /* Phone frame */
+  .phone {
+    width: 100%;
+    max-width: 390px;
+    min-height: calc(100vh - 44px);
+    background: var(--warm-white);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Screens */
+  .screen {
+    display: none;
+    flex-direction: column;
+    min-height: calc(100vh - 44px);
+    padding: 0;
+    animation: fadeIn 0.3s ease;
+  }
+  .screen.active { display: flex; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Screen header */
+  .screen-header {
+    padding: 28px 28px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-light);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 0;
+    margin-bottom: 8px;
+    min-height: 44px;
+  }
+  .back-btn:hover { color: var(--text-dark); }
+  .back-btn svg { width: 20px; height: 20px; }
+
+  .screen-title {
+    font-family: 'Lora', serif;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+  }
+  .screen-subtitle {
+    font-size: 16px;
+    color: var(--text-mid);
+    line-height: 1.5;
+  }
+
+  /* Content area */
+  .screen-body {
+    padding: 24px 28px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+  }
+  .card-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 8px;
+  }
+  .card-value {
+    font-family: 'Lora', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.3;
+  }
+  .card-sub {
+    font-size: 15px;
+    color: var(--text-mid);
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+
+  /* Activity choice cards */
+  .activity-card {
+    background: var(--warm-white);
+    border: 2px solid var(--border);
+    border-radius: 18px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    min-height: 72px;
+  }
+  .activity-card:hover { border-color: currentColor; transform: translateY(-1px); box-shadow: 0 4px 16px var(--shadow); }
+  .activity-card.selected { border-width: 2.5px; }
+  .activity-icon { font-size: 32px; width: 40px; text-align: center; flex-shrink: 0; }
+  .activity-info { flex: 1; }
+  .activity-name { font-size: 18px; font-weight: 600; color: var(--text-dark); }
+  .activity-dur { font-size: 14px; color: var(--text-light); margin-top: 2px; }
+
+  /* Progress bar */
+  .progress-wrap {
+    background: var(--border);
+    border-radius: 99px;
+    height: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.6s ease;
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-light);
+    margin-top: 6px;
+  }
+
+  /* Mini history */
+  .history-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .history-day {
+    flex: 1;
+    background: var(--cream);
+    border-radius: 10px;
+    padding: 8px 6px;
+    text-align: center;
+  }
+  .history-day .hd-label { font-size: 11px; color: var(--text-light); }
+  .history-day .hd-val { font-size: 15px; font-weight: 600; color: var(--text-dark); margin-top: 2px; }
+  .history-day.done { background: var(--k-light); }
+
+  /* Social members */
+  .members-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .member-chip {
+    background: var(--t-light);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 14px;
+    color: var(--t-primary);
+    font-weight: 500;
+  }
+
+  /* Buttons */
+  .btn {
+    width: 100%;
+    min-height: 60px;
+    border: none;
+    border-radius: 16px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 19px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { color: #fff; }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-mid);
+    border: 2px solid var(--border);
+    font-size: 17px;
+    min-height: 54px;
+  }
+  .btn-secondary:hover { border-color: var(--text-mid); }
+  .btn-ghost {
+    background: transparent;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-light);
+    min-height: 48px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Variant-specific btn colors */
+  .var-a .btn-primary { background: var(--a-btn); }
+  .var-a .btn-primary:hover { background: var(--a-btn-hover); }
+  .var-a .activity-card.selected { border-color: var(--a-primary); color: var(--a-primary); }
+  .var-a .activity-card:hover { color: var(--a-primary); }
+  .var-a .card-accent { background: var(--a-light); border-color: var(--a-accent); }
+  .var-a .progress-fill { background: var(--a-accent); }
+  .var-a .screen-title { color: var(--a-primary); }
+
+  .var-k .btn-primary { background: var(--k-btn); }
+  .var-k .btn-primary:hover { background: var(--k-btn-hover); }
+  .var-k .activity-card.selected { border-color: var(--k-primary); color: var(--k-primary); }
+  .var-k .activity-card:hover { color: var(--k-primary); }
+  .var-k .card-accent { background: var(--k-light); border-color: var(--k-accent); }
+  .var-k .progress-fill { background: var(--k-accent); }
+  .var-k .screen-title { color: var(--k-primary); }
+
+  .var-t .btn-primary { background: var(--t-btn); }
+  .var-t .btn-primary:hover { background: var(--t-btn-hover); }
+  .var-t .activity-card.selected { border-color: var(--t-primary); color: var(--t-primary); }
+  .var-t .activity-card:hover { color: var(--t-primary); }
+  .var-t .card-accent { background: var(--t-light); border-color: var(--t-accent); }
+  .var-t .progress-fill { background: var(--t-accent); }
+  .var-t .screen-title { color: var(--t-primary); }
+
+  /* Footer buttons area */
+  .btn-area {
+    padding: 16px 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: auto;
+  }
+
+  /* SMS bubble */
+  .sms-bubble {
+    background: #E5E5EA;
+    border-radius: 16px 16px 4px 16px;
+    padding: 14px 18px;
+    font-size: 16px;
+    font-family: 'Source Sans 3', sans-serif;
+    color: var(--text-dark);
+    line-height: 1.5;
+  }
+  .sms-example {
+    background: var(--k-light);
+    border: 1.5px solid var(--k-accent);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 15px;
+    color: var(--text-dark);
+    font-family: monospace;
+    margin-top: 12px;
+  }
+
+  /* Rating scale */
+  .rating-label { font-size: 16px; font-weight: 600; color: var(--text-dark); margin-bottom: 10px; }
+  .rating-row { display: flex; gap: 8px; }
+  .rating-btn {
+    flex: 1;
+    min-height: 52px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    background: var(--warm-white);
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--text-mid);
+    transition: all 0.15s;
+  }
+  .rating-btn:hover, .rating-btn.sel { background: var(--k-light); border-color: var(--k-accent); color: var(--k-primary); }
+  .var-a .rating-btn:hover, .var-a .rating-btn.sel { background: var(--a-light); border-color: var(--a-accent); color: var(--a-primary); }
+  .var-t .rating-btn:hover, .var-t .rating-btn.sel { background: var(--t-light); border-color: var(--t-accent); color: var(--t-primary); }
+
+  /* Divider */
+  .divider { height: 1px; background: var(--border); margin: 4px 0; }
+
+  /* Safety note */
+  .safety-note {
+    background: #FFF8E1;
+    border: 1.5px solid #FFE082;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #5D4037;
+    line-height: 1.5;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  /* Welcome special */
+  .welcome-illustration {
+    width: 100%;
+    padding: 32px 28px 0;
+    display: flex;
+    justify-content: center;
+  }
+  .welcome-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 52px;
+  }
+
+  /* Code badge */
+  .code-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 18px;
+    font-size: 22px;
+    font-weight: 700;
+    font-family: 'Lora', serif;
+    letter-spacing: 2px;
+  }
+  .code-label { font-size: 13px; font-weight: 500; color: var(--text-light); letter-spacing: 0; font-family: 'Source Sans 3', sans-serif; }
+
+  /* Step: done screen */
+  .done-icon {
+    font-size: 64px;
+    text-align: center;
+    margin: 20px 0 8px;
+  }
+
+  /* Hidden toggle utility */
+  .hide { display: none !important; }
+
+  /* Scrollable if needed */
+  .screen-body { overflow-y: auto; }
+
+  /* Small label chip */
+  .chip {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .chip-a { background: var(--a-light); color: var(--a-primary); }
+  .chip-k { background: var(--k-light); color: var(--k-primary); }
+  .chip-t { background: var(--t-light); color: var(--t-primary); }
+
+  /* Toggle option row (for autonomy) */
+  .toggle-row {
+    display: flex;
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  .toggle-opt {
+    flex: 1;
+    padding: 12px 8px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: var(--text-mid);
+    transition: all 0.15s;
+    min-height: 48px;
+  }
+  .toggle-opt.sel, .toggle-opt:hover { background: var(--a-light); color: var(--a-primary); }
+
+  /* Researcher nav hint */
+  .nav-hint {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-light);
+    padding: 6px;
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<!-- Variant selector (researcher tool) -->
+<div class="variant-bar">
+  <button id="vbtn-a" onclick="setVariant('a')">A · Autonomi</button>
+  <button id="vbtn-k" onclick="setVariant('k')">K · Kompetens</button>
+  <button id="vbtn-t" onclick="setVariant('t')">T · Tillhörighet</button>
+</div>
+
+<!-- Phone frame -->
+<div class="phone" id="phone">
+
+  <!-- ══════════════════════════════════════════
+       SCREEN 0: Välkommen
+  ══════════════════════════════════════════ -->
+  <div class="screen active" id="s0">
+    <div class="welcome-illustration">
+      <div class="welcome-circle" id="welcome-circle">🌿</div>
+    </div>
+    <div class="screen-header" style="padding-top:24px;">
+      <div class="screen-title">Välkommen!</div>
+    </div>
+    <div class="screen-body">
+      <p class="screen-subtitle">Det här är ett enkelt stöd för att röra på sig i vardagen.<br><br>Du väljer en aktivitet och gör den i din egen takt.</p>
+      <div style="height:8px;"></div>
+      <div>
+        <div class="code-label">Din kod</div>
+        <div class="code-badge">P<span id="code-num">01</span></div>
+      </div>
+      <div class="safety-note">
+        <span>⚠️</span>
+        <span>Känn efter och gör det i din takt. Det är alltid okej att ta det lugnt eller pausa.</span>
+      </div>
+    </div>
+    <div class="btn-area">
+      <button class="btn btn-primary" onclick="go('s1')">Starta →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SCREEN 1: Hem / Dagens aktivitet
+  ══════════════════════════════════════════ -->
+  <div class="screen" id="s1">
+    <div class="screen-header">
+      <div class="screen-title">Idag</div>
+    </div>
+    <div class="screen-body">
+
+      <!-- Variant A -->
+      <div class="var-content-a card card-accent">
+        <div class="card-label">Din dag</div>
+        <div class="card-value">Du väljer själv idag</div>
+        <div class="card-sub">Målet är valfritt – gör det som känns rätt för dig.</div>
+      </div>
+      <!-- Variant K -->
+      <div class="var-content-k card card-accent">
+        <div class="card-label">Dagens mål</div>
+        <div class="card-value">10 minuter</div>
+        <div class="card-sub">Lagom för att komma igång. Du klarar det!</div>
+      </div>
+      <!-- Variant T -->
+      <div class="var-content-t card card-accent">
+        <div class="card-label">Gruppmål idag</div>
+        <div class="card-value">30 minuter tillsammans</div>
+        <div class="card-sub">Ni är 4 deltagare – varje bidrag räknas.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Dag</div>
+        <div class="card-value">Tisdag</div>
+        <div class="card-sub">Block 1 av 3 · Dag 2 av 3</div>
+      </div>
+    </div>
+    <div class="btn-area">
+      <button class="btn btn-primary" onclick="go('s2')">Välj aktivitet →</button>
+      <button class="btn btn-secondary" onclick="go('s6')">Hjälp / Kontakt</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SCREEN 2: Välj aktivitet
+  ══════════════════════════════════════════ -->
+  <div class="screen" id="s2">
+    <div class="screen-header">
+      <button class="back-btn" onclick="go('s1')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+        Tillbaka
+      </button>
+      <div class="screen-title">Vad vill du göra idag?</div>
+    </div>
+    <div class="screen-body">
+      <div class="activity-card" onclick="selectActivity(this, 's3')" data-act="promenad">
+        <div class="activity-icon">🚶</div>
+        <div class="activity-info">
+          <div class="activity-name">Promenad</div>
+          <div class="activity-dur">10–30 min · Utomhus eller inomhus</div>
+        </div>
+      </div>
+      <div class="activity-card" onclick="selectActivity(this, 's3')" data-act="rörlighet">
+        <div class="activity-icon">🧘</div>
+        <div class="activity-info">
+          <div class="activity-name">Rörlighet / Stretch</div>
+          <div class="activity-dur">5–15 min · Lugnt och mjukt</div>
+        </div>
+      </div>
+      <div class="activity-card" onclick="selectActivity(this, 's3')" data-act="styrka">
+        <div class="activity-icon">🪑</div>
+        <div class="activity-info">
+          <div class="activity-name">Lätt styrka</div>
+          <div class="activity-dur">5–15 min · Sittande eller stående</div>
+        </div>
+      </div>
+      <!-- Only shown in Variant A -->
+      <div class="activity-card var-content-a" onclick="selectActivity(this, 's3')" data-act="annat">
+        <div class="activity-icon">✏️</div>
+        <div class="activity-info">
+          <div class="activity-name">Annat</div>
+          <div class="activity-dur">Valfri aktivitet – du bestämmer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SCREEN 3: Plan / Mål (KEY VARIANT SCREEN)
+  ══════════════════════════════════════════ -->
+  <div class="screen" id="s3">
+    <div class="screen-header">
+      <button class="back-btn" onclick="go('s2')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+        Tillbaka
+      </button>
+      <div class="screen-title">Din plan för idag</div>
+    </div>
+    <div class="screen-body">
+
+      <!-- ── AUTONOMI ── -->
+      <div class="var-content-a">
+        <div class="card">
+          <div class="card-label">Vill du sätta ett mål?</div>
+          <div class="toggle-row">
+            <button class="toggle-opt sel" onclick="toggleSel(this)">Ja</button>
+            <button class="toggle-opt" onclick="toggleSel(this)">Nej, tar det som det blir</button>
+          </div>
+        </div>
+        <div class="card" style="margin-top:0;">
+          <div class="card-label">Välj format för ditt mål</div>
+          <div class="toggle-row">
+            <button class="toggle-opt sel" onclick="toggleSel(this)">Minuter</button>
+            <button class="toggle-opt" onclick="toggleSel(this)">Steg</button>
+          </div>
+          <div style="margin-top:14px;">
+            <div class="card-label">Mitt mål idag</div>
+            <div style="font-size:32px; font-family:'Lora',serif; font-weight:700; color:var(--a-primary); margin-top:4px;">15 <span style="font-size:18px; font-weight:500; color:var(--text-mid);">minuter</span></div>
+            <div class="card-sub">(Ändra i SMS om du vill)</div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:0; display:flex; align-items:center; gap:14px;">
+          <span style="font-size:28px;">🛋️</span>
+          <div>
+            <div style="font-size:16px; font-weight:600; color:var(--text-dark);">Idag tar jag det lugnt</div>
+            <div class="card-sub">Det är okej. Försök igen imorgon.</div>
+          </div>
+          <button onclick="go('s_rest')" style="margin-left:auto; background:var(--a-light); border:none; border-radius:10px; padding:8px 14px; font-size:14px; font-weight:600; color:var(--a-primary); cursor:pointer; min-height:44px;">Välj</button>
+        </div>
+      </div>
+
+      <!-- ── KOMPETENS ── -->
+      <div class="var-content-k">
+        <div class="card card-accent">
+          <div class="card-label">Dagens mål</div>
+          <div class="card-value" style="font-size:28px;">10 minuter</div>
+          <div class="card-sub">Lagom för att komma igång 🙌</div>
+          <div class="progress-wrap" style="margin-top:14px;">
+            <div class="progress-fill" style="width:0%;" id="k-prog"></div>
+          </div>
+          <div class="progress-label">
+            <span>0 min</span><span>10 min</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-label">3-dagars översikt</div>
+          <div class="history-row">
+            <div class="history-day done">
+              <div class="hd-label">Mån</div>
+              <div class="hd-val">✓</div>
+            </div>
+            <div class="history-day done">
+              <div class="hd-label">Tis</div>
+              <div class="hd-val">✓</div>
+            </div>
+            <div class="history-day">
+              <div class="hd-label">Ons</div>
+              <div class="hd-val">–</div>
+            </div>
+          </div>
+          <div class="card-sub" style="margin-top:10px;">Du är på god väg – fortsätt så!</div>
+        </div>
+      </div>
+
+      <!-- ── TILLHÖRIGHET ── -->
+      <div class="var-content-t">
+        <div class="card card-accent">
+          <div class="card-label">Gruppmål idag</div>
+          <div class="card-value" style="font-size:26px;">30 minuter tillsammans</div>
+          <div class="card-sub">Du är med i en liten grupp som testar samma upplägg.</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Din grupp</div>
+          <div class="members-row">
+            <div class="member-chip">👤 Du</div>
+            <div class="member-chip">👤 Deltagare 2</div>
+            <div class="member-chip">👤 Deltagare 3</div>
+            <div class="member-chip">👤 Deltagare 4</div>
+          </div>
+          <div class="card-sub" style="margin-top:12px;">Ni är inte ensamma i detta. 💙</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="btn-area">
+      <button class="btn btn-primary" onclick="go('s4')">Jag är redo →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SCREEN 3b: Vila (Autonomi – "tar det lugnt")
+  ══════════════════════════════════════════ -->
+  <div class="screen" id="s_rest">
+    <div class="screen-header">
+      <button class="back-btn" onclick="go('s3')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+        Tillbaka
+      </button>
+      <div class="screen-title">Idag tar du det lugnt</div>
+    </div>
+    <div class="screen-body">
+      <div style="font-size:56px; text-align:center; margin:20px 0;">🛋️</div>
+      <div class="card card-accent">
+        <div class="card-value">Det är helt okej.</div>
+        <div class="card-sub" style="margin-top:8px;">Att lyssna på sin kropp är klokt. Försök igen imorgon om du vill.</div>
+      </div>
+      <div class="card">
+        <div class="card-sub">Du behöver ändå svara på kvällens SMS – skriv bara:<br><br>
+          <span class="sms-example">P01 minuter 0 kändes 3 motiv 3</span>
+        </div>
+      </div>
+    </div>
+    <div class="btn-area">
+      <button class="btn btn-primary" onclick="go('s1')">← Tillbaka till start</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SCREEN 4: Gör aktiviteten
+  ══════════════════════════════════════════ -->
+  <div class="screen" id="s4">
+    <div class="screen-header">
+      <div class="screen-title">Du är igång! 🏃</div>
+    </div>
+    <div class="screen-body">
+      <div class="card" style="text-align:center; padding:32px 20px;">
+        <div style="font-size:60px; margin-bottom:12px;" id="act-icon">🚶</div>
+        <div class="card-value" id="act-name">Promenad</div>
+        <div class="card-sub" style="margin-top:8px;">Gör aktiviteten i din egen takt.<br>Ta pauser om du vill.</div>
+      </div>
+      <div class="safety-note">
+        <span>⚠️</span>
+        <span>Känn efter. Avbryt om du blir yr eller får ont.</span>
+      </div>
+    </div>
+    <div class="btn-area">
+      <button class="btn btn-primary" onclick="go('s5')">Jag är klar ✓</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SCREEN 5: Klart + Feedback (KEY VARIANT SCREEN)
+  ══════════════════════════════════════════ -->
+  <div class="screen" id="s5">
+    <div class="screen-header">
+      <div class="screen-title">Bra jobbat! 🎉</div>
+    </div>
+    <div class="screen-body">
+      <div class="done-icon" id="done-icon-anim">⭐</div>
+
+      <!-- Autonomi feedback -->
+      <div class="var-content-a card card-accent">
+        <div class="card-value">Bra att du gjorde ditt val.</div>
+        <div class="card-sub" style="margin-top:8px;">Du valde att röra på dig idag – på ditt sätt, i din takt. Det är det som räknas.</div>
+      </div>
+      <!-- Kompetens feedback -->
+      <div class="var-content-k card card-accent">
+        <div class="card-value">Du klarade dagens mål!</div>
+        <div class="card-sub" style="margin-top:8px;">Du utvecklas. Nästa gång kan du prova 1 minut mer – om du vill. 💪</div>
+        <div class="progress-wrap" style="margin-top:14px;">
+          <div class="progress-fill" style="width:100%;"></div>
+        </div>
+        <div class="progress-label"><span>Klart</span><span>✓</span></div>
+      </div>
+      <!-- Tillhörighet feedback -->
+      <div class="var-content-t card card-accent">
+        <div class="card-value">Tack! Ditt bidrag hjälper gruppen.</div>
+        <div class="card-sub" style="margin-top:8px;">Heja dig! 🙌 Ni är ett bra gäng.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Hur kändes det?</div>
+        <div class="rating-row">
+          <button class="rating-btn" onclick="ratingClick(this,1)">1</button>
+          <button class="rating-btn" onclick="ratingClick(this,2)">2</button>
+          <button class="rating-btn" onclick="ratingClick(this,3)">3</button>
+          <button class="rating-btn" onclick="ratingClick(this,4)">4</button>
+          <button class="rating-btn" onclick="ratingClick(this,5)">5</button>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-top:4px;">
+          <span style="font-size:12px; color:var(--text-light);">Svårt / jobbigt</span>
+          <span style="font-size:12px; color:var(--text-light);">Lätt / bra</span>
+        </div>
+      </div>
+    </div>
+    <div class="btn-area">
+      <button class="btn btn-primary" onclick="go('s6b')">Så rapporterar du idag →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SCREEN 6b: Rapportera via SMS
+  ══════════════════════════════════════════ -->
+  <div class="screen" id="s6b">
+    <div class="screen-header">
+      <div class="screen-title">Kvällsrapport</div>
+      <div class="screen-subtitle">Du rapporterar via SMS varje kväll.</div>
+    </div>
+    <div class="screen-body">
+      <div class="card">
+        <div class="card-label">Skicka SMS till forskaren</div>
+        <div class="card-sub" style="margin-bottom:12px;">Svara på kvällens meddelande med:</div>
+        <div class="sms-bubble">
+          P__ &nbsp;steg ____<br>
+          kändes _ &nbsp;motiv _
+        </div>
+        <div class="card-label" style="margin-top:16px;">Exempel</div>
+        <div class="sms-example">P01 steg 5120 kändes 4 motiv 3</div>
+        <div class="card-sub" style="margin-top:10px;">Eller med minuter: <br><span style="font-family:monospace;">P01 minuter 20 kändes 4 motiv 3</span></div>
+      </div>
+      <div class="card">
+        <div class="card-label">Skalorna</div>
+        <div class="card-sub">
+          <b>Kändes (1–5):</b> 1 = svårt/jobbigt · 5 = lätt/bra<br>
+          <b>Motiv (1–5):</b> 1 = inte alls · 5 = väldigt motiverad
+        </div>
+      </div>
+    </div>
+    <div class="btn-area">
+      <button class="btn btn-primary" onclick="go('s1')">← Tillbaka till start</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SCREEN 6: Hjälp
+  ══════════════════════════════════════════ -->
+  <div class="screen" id="s6">
+    <div class="screen-header">
+      <button class="back-btn" onclick="go('s1')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+        Tillbaka
+      </button>
+      <div class="screen-title">Hjälp &amp; kontakt</div>
+    </div>
+    <div class="screen-body">
+      <div class="card">
+        <div class="card-label">Frågor eller problem?</div>
+        <div class="card-sub">Skicka ett SMS till forskaren. Din kod börjar med P.</div>
+        <div class="sms-example" style="margin-top:12px;">Hjälp P01</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Om studien</div>
+        <div class="card-sub">Du kan avbryta när som helst utan att förklara varför. Det finns inga rätt eller fel svar – vi testar upplägget, inte dig.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Hittar inte steg?</div>
+        <div class="card-sub">Det är okej – rapportera antalet <b>minuter</b> istället. Båda fungerar bra.</div>
+      </div>
+    </div>
+    <div class="btn-area">
+      <button class="btn btn-secondary" onclick="go('s1')">← Tillbaka</button>
+    </div>
+  </div>
+
+  <div class="nav-hint" id="nav-hint">Forskarvy · Välj variant i menyn ovan</div>
+
+</div><!-- /phone -->
+
+<script>
+  let currentVariant = 'a';
+  let selectedActivity = { name: 'Promenad', icon: '🚶' };
+
+  const variantColors = {
+    a: { circle: '#D8F3DC' },
+    k: { circle: '#D6E8FA' },
+    t: { circle: '#F3D8EE' }
+  };
+
+  function setVariant(v) {
+    currentVariant = v;
+    // Update variant bar
+    ['a','k','t'].forEach(x => {
+      document.getElementById('vbtn-'+x).classList.toggle('active', x===v);
+    });
+    // Update phone class
+    const phone = document.getElementById('phone');
+    phone.className = 'phone var-' + v;
+    // Show/hide variant content
+    document.querySelectorAll('[class*="var-content-"]').forEach(el => {
+      const matches = el.className.split(' ').filter(c => c.startsWith('var-content-'));
+      const visible = matches.some(c => c === 'var-content-' + v);
+      el.style.display = visible ? '' : 'none';
+    });
+    // Welcome circle color
+    document.getElementById('welcome-circle').style.background = variantColors[v].circle;
+  }
+
+  function go(screenId) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(screenId).classList.add('active');
+    // Animate kompetens progress bar on screen 3
+    if (screenId === 's3' && currentVariant === 'k') {
+      setTimeout(() => {
+        const p = document.getElementById('k-prog');
+        if (p) p.style.width = '0%';
+      }, 100);
+    }
+    window.scrollTo(0,0);
+  }
+
+  function selectActivity(card, nextScreen) {
+    document.querySelectorAll('.activity-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    const act = card.dataset.act;
+    const icons = { promenad:'🚶', rörlighet:'🧘', styrka:'🪑', annat:'✏️' };
+    const names = { promenad:'Promenad', rörlighet:'Rörlighet / Stretch', styrka:'Lätt styrka', annat:'Valfri aktivitet' };
+    selectedActivity = { name: names[act] || act, icon: icons[act] || '🏃' };
+    document.getElementById('act-icon').textContent = selectedActivity.icon;
+    document.getElementById('act-name').textContent = selectedActivity.name;
+    document.getElementById('done-icon-anim').textContent = selectedActivity.icon;
+    setTimeout(() => go(nextScreen), 180);
+  }
+
+  function toggleSel(btn) {
+    const siblings = btn.parentElement.querySelectorAll('.toggle-opt');
+    siblings.forEach(s => s.classList.remove('sel'));
+    btn.classList.add('sel');
+  }
+
+  function ratingClick(btn, val) {
+    const siblings = btn.parentElement.querySelectorAll('.rating-btn');
+    siblings.forEach(s => s.classList.remove('sel'));
+    btn.classList.add('sel');
+  }
+
+  // Init
+  setVariant('a');
+</script>
+</body>
+</html>
