@@ -174,7 +174,6 @@ body{font-family:'Atkinson Hyperlegible',sans-serif;background:#1E1A16;min-heigh
 <body>
 
 <div class="rbar">
-  <span class="rl">FORSKAR­VY →</span>
   <button id="vbtn-a" onclick="setVariant('a')">🌿 STEG A</button>
   <button id="vbtn-k" onclick="setVariant('k')">📈 STEG K</button>
   <button id="vbtn-t" onclick="setVariant('t')">🤝 STEG T</button>
@@ -199,11 +198,6 @@ body{font-family:'Atkinson Hyperlegible',sans-serif;background:#1E1A16;min-heigh
   <div class="top-bar"></div>
   <div class="page-title">Idag</div>
   <div class="body">
-    <div class="ea" id="enkät-alert" style="display:none;" onclick="go('s_enkät')">
-      <div class="eai">📋</div>
-      <div><div class="eat">Veckans enkät är klar!</div><div class="eas">Tar 3–4 min · Viktigt för studien</div></div>
-      <div class="eaar">→</div>
-    </div>
     <div class="hero">
       <div class="hi" id="h-icon">📈</div>
       <div class="ht" id="h-title">Dagens mål: 30 minuter rörelse</div>
@@ -307,7 +301,7 @@ body{font-family:'Atkinson Hyperlegible',sans-serif;background:#1E1A16;min-heigh
       <div style="font-size:13px;color:var(--light);margin-top:6px;text-align:center;">minuter</div>
     </div>
     <div class="card" style="background:var(--ps);border-color:var(--pm);">
-      <div class="csub" style="font-size:14px;color:var(--p);">Det är allt för idag! En kort enkät kommer efter tre pass – den tar 3–4 minuter.</div>
+      <div class="csub" style="font-size:14px;color:var(--p);">Det är allt för idag! Välkommen tillbaka imorgon.</div>
     </div>
   </div>
   <div class="ba"><button class="btn bp" onclick="skickaRapport()">Skicka in →</button></div>
@@ -319,28 +313,6 @@ body{font-family:'Atkinson Hyperlegible',sans-serif;background:#1E1A16;min-heigh
     <div class="de">✅</div>
     <div style="width:100%;"><div class="card"><div class="cbig">Tack för idag!</div><div class="csub" id="tack-txt">Bra gjort!</div></div></div>
     <div class="card" style="width:100%;"><div class="ey">Sammanfattning</div><div class="csub" id="summary"></div></div>
-    <div class="card" id="enkät-reminder" style="width:100%;display:none;background:var(--ps);border-color:var(--pm);">
-      <div class="cbig" style="color:var(--p);">📋 Kom ihåg!</div>
-      <div class="csub">Du har gjort alla 3 pass. Fyll i veckans enkät på startsidan – det är viktigt för studien!</div>
-    </div>
-  </div>
-  <div class="ba"><button class="btn bo" onclick="go('s_hem')">← Tillbaka till start</button></div>
-</div>
-
-<!-- BLOCK-ENKÄT -->
-<div class="screen" id="s_enkät">
-  <div class="top-bar"><button class="back-btn" onclick="go('s_hem')">← Tillbaka</button></div>
-  <div class="page-title">Veckans enkät</div>
-  <div class="page-sub">Tar 3–4 minuter. Tänk på de senaste tre passen.</div>
-  <div class="body" id="enkät-body"></div>
-  <div class="ba"><button class="btn bp" onclick="skickaEnkät()">Skicka in enkäten →</button></div>
-</div>
-
-<!-- ENKÄT TACK -->
-<div class="screen" id="s_enkät_tack">
-  <div class="dc">
-    <div class="de">🙏</div>
-    <div style="width:100%;"><div class="card"><div class="cbig">Tack – enkäten är skickad!</div><div class="csub" id="enkät-tack-txt">Dina svar har registrerats.</div></div></div>
   </div>
   <div class="ba"><button class="btn bo" onclick="go('s_hem')">← Tillbaka till start</button></div>
 </div>
@@ -368,7 +340,6 @@ body{font-family:'Atkinson Hyperlegible',sans-serif;background:#1E1A16;min-heigh
   <div class="ba"><button class="btn bo" onclick="go('s_hem')">← Tillbaka</button></div>
 </div>
 
-<div class="bh">FORSKARVERKTYG · Ändra ej variant under pågående deltagarsession</div>
 </div>
 
 <div class="ov" id="overlay"><div class="ob"><span class="sp">⏳</span><p>Skickar...</p></div></div>
@@ -378,7 +349,6 @@ const SU='https://script.google.com/macros/s/AKfycby8rsPv55X-DOPbbKbzdXwsHCSYEpn
 let pid='',variant='k',sid=Date.now().toString(36);
 let cs='s_kod',st=Date.now();
 let act={id:'promenad',icon:'🚶',name:'Promenad'};
-let enkätState={};
 
 // ═══════════════════════════════════════════════════
 // EXERCISES – ca 30 min vardera, äldresäkra
@@ -437,61 +407,25 @@ const EX={
 const VC={
   a:{
     hi:'🌿', ht:'Du väljer själv idag',
-    hs:'Välj aktivitet, tempo och mål som passar dig. Du bestämmer – det finns inget rätt eller fel.',
+    hs:'Välj aktivitet, tempo och mål som passar dig. Det är du som bestämmer – det finns inget rätt eller fel.',
     kt:'Bra att du gjorde ditt val!',
-    ks:'Du rörde på dig på ditt sätt och i din takt. Det är det som räknas.',
+    ks:'Du rörde på dig på ditt eget sätt och i din egen takt. Det är det som räknas – du bestämde själv.',
     ki:'🌿'
   },
   k:{
     hi:'📈', ht:'Dagens mål: 30 minuter rörelse',
-    hs:'Ett tydligt mål hjälper dig hålla fokus. Klara du det idag bygger du vidare imorgon.',
+    hs:'Ett tydligt mål hjälper dig hålla fokus. Varje pass du genomför visar att du kan och bygger vidare på det du redan klarat.',
     kt:'Du klarade passet!',
-    ks:'Varje pass du genomför stärker din kondition och ditt välmående. Bra jobbat! 💪',
+    ks:'Du satte ett mål och nådde det. Varje genomfört pass visar din förmåga – du blir starkare för varje gång.',
     ki:'🏆'
   },
   t:{
     hi:'🤝', ht:'Gruppen tränar idag!',
-    hs:'Du är en del av en grupp. Varje minut du rör på dig bidrar till ert gemensamma mål på 90 minuter idag.',
+    hs:'Du är en del av Rörelsegänget. Varje minut du rör på dig bidrar till ert gemensamma mål – ni gör detta tillsammans.',
     kt:'Tack – du hjälpte gruppen framåt!',
-    ks:'Heja dig och hela gruppen! 🙌 Ni håller varandra igång och ingen tränar ensam.',
+    ks:'Gruppen är starkare med dig. Ni stöttar varandra och ingen tränar ensam. Heja er! 🙌',
     ki:'🤝'
   }
-};
-
-// ═══════════════════════════════════════════════════
-// BLOCK-ENKÄT ITEMS
-// Alla konstrukt mäts varje gång = manipulation check
-// Inspirerat av PNSE/BPNES, svenska studieanpassningar
-// ═══════════════════════════════════════════════════
-const EI={
-  a_hdr:'Valfrihet och kontroll (de senaste tre dagarna)',
-  a:[
-    {id:'a1',q:'Jag kände att jag kunde välja själv hur jag ville röra på mig.'},
-    {id:'a2',q:'Jag kände att aktiviteten var mitt eget beslut.'},
-    {id:'a3',q:'Jag upplevde att upplägget gav mig kontroll över mitt mål.'}
-  ],
-  k_hdr:'Framsteg och tydlighet',
-  k:[
-    {id:'k1',q:'Jag kände mig kapabel att genomföra aktiviteten.'},
-    {id:'k2',q:'Jag kände att jag gjorde framsteg.'},
-    {id:'k3',q:'Jag förstod tydligt vad jag skulle göra.'}
-  ],
-  t_hdr:'Gemenskap och stöd',
-  t:[
-    {id:'t1',q:'Jag kände mig uppmuntrad och stöttad.'},
-    {id:'t2',q:'Jag kände mig som en del av något tillsammans med andra.'},
-    {id:'t3',q:'Jag kände mig mindre ensam i att försöka röra på mig.'}
-  ],
-  m_hdr:'Din motivation',
-  m:[
-    {id:'m1',q:'Jag ville röra på mig för att det kändes meningsfullt för mig.'},
-    {id:'m2',q:'Jag rörde på mig mest för att jag kände att jag "borde".'}
-  ],
-  ux_hdr:'Upplägget i appen',
-  ux:[
-    {id:'ux1',q:'Upplägget i appen var lätt att förstå och använda.'},
-    {id:'ux2',q:'Jag skulle vilja fortsätta använda ett liknande upplägg för rörelse.'}
-  ]
 };
 
 // ═══════════════════════════════════════════════════
@@ -507,7 +441,6 @@ function go(id){
   if(id==='s_plan') renderPlan();
   if(id==='s_ovn') renderOvn();
   if(id==='s_klar') renderKlar();
-  if(id==='s_enkät') renderEnkät();
 }
 
 function setVariant(v){
@@ -543,8 +476,6 @@ function renderHem(){
       dot.querySelector('.dv').textContent=passes[i]?'✓':(i+1===cur?'▶':'–');
     });
   }
-  const ea=document.getElementById('enkät-alert');
-  ea.style.display=(getPasses().filter(Boolean).length>=3&&!getEnkätDone())?'flex':'none';
 }
 
 function renderPlan(){
@@ -552,41 +483,47 @@ function renderPlan(){
   const ex=EX[act.id]||EX.promenad;
 
   if(variant==='a'){
-    // H1: fler val (aktiviteter + eget)
-    // H2: flexibilitet (eget mål, ta det lugnt)
-    // H4: upplevd användbarhet (meningsfullt upplägg)
+    // H1: Empower users with more choices – fler val, anpassning
+    // H2: Define boundaries – flexibilitet, inga tvingande mål
+    // H4: Enhance perceived usefulness – meningsfullt upplägg
+    // H3: Protect user privacy – ingen press, ingen jämförelse
     b.innerHTML=`
       <div class="hero">
         <div class="hi">🌿</div>
         <div class="ht">Du bestämmer idag</div>
-        <div class="hs">Vill du sätta ett eget mål? Du väljer format och mängd – eller hoppar över mål helt.</div>
+        <div class="hs">Det här är din tid. Du väljer vad som passar dig – tempo, längd och upplägg. Det finns inget rätt eller fel.</div>
       </div>
       <div class="card">
         <div class="ey">Vill du sätta ett mål?</div>
         <div class="tog"><button class="tb sel" onclick="toggleSel(this)">Ja, jag sätter ett mål</button><button class="tb" onclick="toggleSel(this)">Nej, tar det som det blir</button></div>
       </div>
       <div class="card">
-        <div class="ey">Format på mitt mål</div>
-        <div class="tog"><button class="tb sel" onclick="toggleSel(this)">Minuter</button><button class="tb" onclick="toggleSel(this)">Steg</button></div>
+        <div class="ey">Mitt mål i minuter</div>
         <div style="display:flex;gap:10px;margin-top:10px;align-items:center;">
           <input class="gi" id="goal-in" type="number" placeholder="30" min="1" inputmode="numeric" style="max-width:120px;">
-          <div style="font-size:16px;font-weight:700;color:var(--mid);">minuter (eller steg)</div>
+          <div style="font-size:16px;font-weight:700;color:var(--mid);">minuter</div>
         </div>
       </div>
       <div class="card" style="background:var(--as);border-color:var(--am);">
-        <div class="csub" style="color:var(--a);font-size:14px;">💡 Förslag: <b>ca ${ex.tid}</b> är ett bra riktmärke – men du väljer helt fritt.</div>
+        <div class="csub" style="color:var(--a);font-size:14px;">💡 Förslag: <b>ca ${ex.tid}</b> är ett bra riktmärke – men du väljer helt fritt. Du kan ändra dig när som helst.</div>
+      </div>
+      <div class="card">
+        <div class="csub" style="font-size:14px;">🌿 Kom ihåg: det är du som styr. Anpassa passet precis som du vill – kortare, längre, snabbare, lugnare. Allt är okej.</div>
       </div>`;
   } else if(variant==='k'){
-    // H10: tydlig lista med schema/mål
-    // H8: datavisualisering (progressbar, historik)
-    // H11: belöningsmekanismer
-    // H7: minska börda (tydlig struktur)
+    // H7: Reduce user burden – tydlig struktur, enkelt
+    // H8: Data visualization – progressbar, visuell historik
+    // H10: Provide a list of schedules – tydliga mål och steg
+    // H11: Build reward mechanism – belöning, feedback
+    // H9: Contextual adaptability – anpassad feedback
     const passes=getPasses();
+    const donePasses=passes.filter(Boolean).length;
+    const feedbackMsg=donePasses===0?'Första passet väntar – du klarar detta!':donePasses===1?'Bra start! Du har visat att du kan. 1 av 3 klara.':'Imponerande! 2 av 3 klara – sista steget kvar!';
     b.innerHTML=`
       <div class="hero">
         <div class="hi">📈</div>
         <div class="ht">Dagens mål: 30 minuter rörelse</div>
-        <div class="hs">Tydliga mål hjälper dig hålla fokus och se dina framsteg.</div>
+        <div class="hs">Tydliga mål hjälper dig se dina framsteg. Du bygger vidare på det du redan klarat.</div>
       </div>
       <div class="card">
         <div class="ey">Ditt mål idag</div>
@@ -595,40 +532,48 @@ function renderPlan(){
         <div class="pl"><span>0 min</span><span>30 min</span></div>
       </div>
       <div class="card">
-        <div class="ey">Dina pass detta block</div>
-        <div class="dots">${[1,2,3].map((d,i)=>`<div class="dot ${passes[i]?'done':''}"><div class="dl">PASS ${d}</div><div class="dv">${passes[i]?'✓':'–'}</div></div>`).join('')}</div>
-        <div class="csub" style="margin-top:9px;">${passes.filter(Boolean).length===0?'Kom igång med ditt första pass!':passes.filter(Boolean).length===1?'Bra start! 1 av 3 pass klara.':'2 av 3 pass klara – du är nästan framme!'}</div>
+        <div class="ey">Din utveckling detta block</div>
+        <div class="dots">${[1,2,3].map((d,i)=>`<div class="dot ${passes[i]?'done':''}"><div class="dl">DAG ${d}</div><div class="dv">${passes[i]?'✓':'–'}</div></div>`).join('')}</div>
+        <div class="csub" style="margin-top:9px;">${feedbackMsg}</div>
+      </div>
+      <div class="card" style="background:var(--ks);border-color:var(--km);">
+        <div class="csub" style="color:var(--k);font-size:14px;">💪 Varje genomfört pass stärker dig. Du har kunskapen och förmågan – nu handlar det bara om att göra det.</div>
       </div>`;
   } else {
-    // H12: digital inkludering (alla kan delta)
-    // H13: social interaktivitet (grupp, uppmuntran)
-    // H14: förbättra identitet (du är en del av gruppen)
-    // H15: informationsdelning (transparens om mål)
+    // H12: Enhance digital inclusion – alla kan delta, inkluderande
+    // H13: Enhance social interactivity – grupp, uppmuntran, stöd
+    // H14: Improve worker identity – du hör till, gemensam identitet
+    // H15: Reinforce information sharing – transparens, delad info
     const groupGoal=90, groupDone=54;
     const pct=Math.round(groupDone/groupGoal*100);
+    const msgs=['Anna avslutade en promenad nyss – bra jobbat Anna!','Bertil siktar på styrkeövningar idag.','Carin hejar på dig: "Vi fixar det tillsammans!"'];
+    const todayMsg=msgs[Math.floor(Math.random()*msgs.length)];
     b.innerHTML=`
       <div class="hero">
         <div class="hi">🤝</div>
-        <div class="ht">Gruppen tränar tillsammans idag!</div>
-        <div class="hs">Gemensamt mål: ${groupGoal} minuter rörelse. Varje minut räknas – du är viktig för gruppen.</div>
+        <div class="ht">Ni tränar tillsammans idag!</div>
+        <div class="hs">Du är en del av en grupp som stöttar varandra. Varje minut du rör på dig bidrar till ert gemensamma mål.</div>
       </div>
       <div class="card">
-        <div class="ey">Din grupp idag</div>
+        <div class="ey">Din grupp – "Rörelsegänget"</div>
         <div class="members">
           <div class="mp you">👤 Du</div>
           <div class="mp">👤 Anna, 68</div>
           <div class="mp">👤 Bertil, 72</div>
           <div class="mp">👤 Carin, 70</div>
         </div>
-        <div class="csub" style="margin-top:10px;">Ni tränar var och en hemma – men mot ett gemensamt mål. Du är inte ensam!</div>
+        <div class="csub" style="margin-top:10px;">Ni tränar hemma var och en – men ni gör det tillsammans. Du är inte ensam!</div>
+      </div>
+      <div class="card" style="background:var(--ts);border-color:var(--tm);">
+        <div class="csub" style="color:var(--t);font-size:14px;">💬 ${todayMsg}</div>
       </div>
       <div class="card">
-        <div class="ey">Gruppens framsteg idag</div>
+        <div class="ey">Gemensamt mål: ${groupGoal} minuter</div>
         <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;font-weight:700;">
-          <span>${groupDone} av ${groupGoal} minuter klara</span><span style="color:var(--t);">${pct}%</span>
+          <span>${groupDone} av ${groupGoal} min klara</span><span style="color:var(--t);">${pct}%</span>
         </div>
         <div class="pw"><div class="pf" style="width:${pct}%;"></div></div>
-        <div class="csub" style="margin-top:8px;">Gruppen behöver ${groupGoal-groupDone} minuter till! Ditt bidrag gör skillnad. 💪</div>
+        <div class="csub" style="margin-top:8px;">Gruppen behöver ${groupGoal-groupDone} minuter till. Ditt bidrag gör skillnad för alla!</div>
       </div>`;
   }
 }
@@ -636,7 +581,13 @@ function renderPlan(){
 function renderOvn(){
   const ex=EX[act.id]||EX.promenad;
   document.getElementById('ovn-title').textContent=act.name;
-  document.getElementById('ovn-sub').textContent='Gör i din takt. Ta pauser när du vill. · '+ex.tid;
+  // Variant-specific sub-text for SDT framing
+  const subTexts={
+    a:'Gör det i din takt, på ditt sätt. Anpassa som du vill. · '+ex.tid,
+    k:'Följ stegen nedan mot ditt mål. Du klarar detta! · '+ex.tid,
+    t:'Medan du tränar gör de andra i gruppen detsamma. Ni gör det ihop! · '+ex.tid
+  };
+  document.getElementById('ovn-sub').textContent=subTexts[variant]||'Gör i din takt. Ta pauser när du vill. · '+ex.tid;
   document.getElementById('ovn-body').innerHTML=
     `<div class="time-badge">⏱ Förslag: ${ex.tid}</div>`+
     ex.steps.map(s=>
@@ -650,49 +601,39 @@ function renderKlar(){
   document.getElementById('k-title').textContent=cfg.kt;
   document.getElementById('k-sub').textContent=cfg.ks;
   const ex=document.getElementById('klar-extra');
-  if(variant==='k'){
-    // H11: belöningsmekanismer
+  if(variant==='a'){
+    // H1/H2: Autonomi-feedback – bekräfta deras val
+    ex.innerHTML=`
+      <div class="card" style="background:var(--as);border-color:var(--am);">
+        <div class="csub" style="color:var(--a);font-size:14px;">🌿 Du valde själv vad du ville göra, hur och hur länge. Det är den bästa formen av rörelse – den som passar just dig.</div>
+      </div>`;
+  } else if(variant==='k'){
+    // H11: belöningsmekanismer – tydlig kompetens-feedback
     ex.innerHTML=`
       <div class="reward">
         <div class="reward-icon">🏅</div>
         <div>
           <div class="reward-txt">Pass ${getCurrentPass()} av 3 klart!</div>
-          <div class="reward-sub">Du klarade ditt mål – kroppen tackar dig.</div>
+          <div class="reward-sub">Du satte ett mål och nådde det – det visar din styrka.</div>
         </div>
       </div>
       <div class="card"><div class="ey">Ditt mål</div><div class="pw"><div class="pf" style="width:100%;"></div></div><div class="pl"><span>Klart!</span><span>✓</span></div></div>`;
   } else if(variant==='t'){
-    // H13: social feedback
+    // H13/H14: social feedback – stärk tillhörighet
     ex.innerHTML=`
       <div class="card">
         <div class="ey">Gruppens totala bidrag</div>
         <div class="pw"><div class="pf" style="width:88%;"></div></div>
         <div class="pl"><span>79 av 90 min</span><span>🏁 Nästan klart!</span></div>
-        <div class="csub" style="margin-top:8px;">Du tog gruppen ett stort steg närmre målet. Heja er!</div>
+        <div class="csub" style="margin-top:8px;">Du tog gruppen ett stort steg närmre målet!</div>
+      </div>
+      <div class="card" style="background:var(--ts);border-color:var(--tm);">
+        <div class="csub" style="color:var(--t);font-size:14px;">💬 Anna säger: "Bra jobbat! Vi är snart framme tillsammans."</div>
       </div>`;
   } else {
     ex.innerHTML='';
   }
   document.getElementById('rapp-akt').textContent=act.name;
-}
-
-function renderEnkät(){
-  enkätState={};
-  let html=`<div class="card" style="background:var(--ps);border-color:var(--pm);"><div class="csub" style="font-size:14px;color:var(--p);">Tänk på de senaste tre dagarna. Svara med 1–5 där 1 = Stämmer inte alls och 5 = Stämmer helt.</div></div>`;
-  const secs=[
-    {hdr:EI.a_hdr,items:EI.a},
-    {hdr:EI.k_hdr,items:EI.k},
-    {hdr:EI.t_hdr,items:EI.t},
-    {hdr:EI.m_hdr,items:EI.m},
-    {hdr:EI.ux_hdr,items:EI.ux}
-  ];
-  secs.forEach(sec=>{
-    html+=`<div class="shdr">${sec.hdr}</div>`;
-    sec.items.forEach(item=>{
-      html+=`<div class="si"><div class="siq">${item.q}</div><div class="sisc" id="si-${item.id}">${[1,2,3,4,5].map(n=>`<button class="sib" onclick="setSi('${item.id}',${n},this)">${n}</button>`).join('')}</div><div class="sisl"><span>Stämmer inte alls</span><span>Stämmer helt</span></div></div>`;
-    });
-  });
-  document.getElementById('enkät-body').innerHTML=html;
 }
 
 // ═══════════════════════════════════════════════════
@@ -705,7 +646,6 @@ function valjAkt(card,id,icon,name){
   setTimeout(()=>go('s_plan'),160);
 }
 function toggleSel(btn){btn.parentElement.querySelectorAll('.tb').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
-function setSi(id,val,btn){document.getElementById('si-'+id).querySelectorAll('.sib').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');enkätState[id]=val;}
 
 // ═══════════════════════════════════════════════════
 // DATA SUBMIT
@@ -713,47 +653,28 @@ function setSi(id,val,btn){document.getElementById('si-'+id).querySelectorAll('.
 function skickaRapport(){
   const mins=document.getElementById('min-in').value||'0';
   document.getElementById('overlay').classList.add('show');
-  const pl={participant_id:pid,variant:variant.toUpperCase(),event_type:'session_report',screen:'s_rapport',activity:act.name,minutes:parseInt(mins)||0,session_number:getCurrentPass(),session_id:sid,block_number:getBlockNumber(),steps_or_minutes:'min:'+mins,feel_rating:'',motiv_rating:''};
+  const curPass=getCurrentPass();
+  const blk=getBlockNumber();
+  const pl={participant_id:pid,variant:variant.toUpperCase(),event_type:'session_report',screen:'s_rapport',activity:act.name,minutes:parseInt(mins)||0,session_number:curPass,session_id:sid,block_number:blk,steps_or_minutes:'min:'+mins,feel_rating:'',motiv_rating:''};
   fetch(SU,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(pl)}).catch(()=>{}).finally(()=>{
     setTimeout(()=>{
       document.getElementById('overlay').classList.remove('show');
       markPassDone();
       const done=getPasses().filter(Boolean).length;
       document.getElementById('summary').innerHTML=`Aktivitet: <b>${act.name}</b><br>Duration: <b>${mins} minuter</b><br>Pass <b>${done} av 3</b> klart`;
-      document.getElementById('tack-txt').textContent=done<3?'Bra gjort! Vi ses imorgon.':'Alla 3 pass klara! Fyll i veckans enkät på startsidan.';
-      document.getElementById('enkät-reminder').style.display=done>=3?'block':'none';
+      document.getElementById('tack-txt').textContent=done<3?'Bra gjort! Vi ses imorgon.':'Alla 3 pass klara för detta block! Bra jobbat.';
       go('s_tack');
     },1000);
   });
 }
 
-function skickaEnkät(){
-  const allItems=[...EI.a,...EI.k,...EI.t,...EI.m,...EI.ux];
-  for(const item of allItems){if(!enkätState[item.id]){alert('Svara på alla påståenden (1–5)');return;}}
-  document.getElementById('overlay').classList.add('show');
-  const scores=Object.entries(enkätState).map(([k,v])=>k+'='+v).join(',');
-  const pl={participant_id:pid,variant:variant.toUpperCase(),event_type:'block_survey',screen:'s_enkät',activity:'',minutes:'',session_number:'',block_number:getBlockNumber(),session_id:sid,steps_or_minutes:'',feel_rating:'',motiv_rating:'',sdt_scores:scores,a_score:avg(['a1','a2','a3']),k_score:avg(['k1','k2','k3']),t_score:avg(['t1','t2','t3']),m_auto:enkätState['m1']||'',m_ctrl:enkätState['m2']||'',ux1:enkätState['ux1']||'',ux2:enkätState['ux2']||''};
-  fetch(SU,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(pl)}).catch(()=>{}).finally(()=>{
-    setTimeout(()=>{
-      document.getElementById('overlay').classList.remove('show');
-      markEnkätDone();
-      document.getElementById('enkät-tack-txt').textContent='Dina svar är registrerade. Välkommen tillbaka för nästa block!';
-      go('s_enkät_tack');
-    },1200);
-  });
-}
-function avg(ids){const v=ids.map(id=>enkätState[id]||0).filter(x=>x>0);return v.length?Math.round(v.reduce((a,b)=>a+b,0)/v.length*10)/10:'';}
-
 // ═══════════════════════════════════════════════════
 // STATE / TRACKING
 // ═══════════════════════════════════════════════════
 function getKey(){return pid+'_'+variant+'_p';}
-function getEKey(){return pid+'_'+variant+'_e';}
 function getPasses(){try{const r=localStorage.getItem(getKey());return r?JSON.parse(r):[false,false,false];}catch(e){return[false,false,false];}}
 function getCurrentPass(){return Math.min(getPasses().filter(Boolean).length+1,3);}
 function markPassDone(){const d=getPasses();const i=d.findIndex(x=>!x);if(i>=0)d[i]=true;try{localStorage.setItem(getKey(),JSON.stringify(d));}catch(e){}}
-function getEnkätDone(){try{return localStorage.getItem(getEKey())==='1';}catch(e){return false;}}
-function markEnkätDone(){try{localStorage.setItem(getEKey(),'1');}catch(e){}}
 function getBlockNumber(){return{a:1,k:2,t:3}[variant]||1;}
 
 function track(et,extra={}){
