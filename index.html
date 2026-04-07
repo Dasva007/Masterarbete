@@ -6,342 +6,225 @@
 <title>Rörelse i vardagen</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#F5F0E8;--surface:#FDFAF5;--border:#E0D8CC;
-  --text:#1A1714;--mid:#5A5450;--light:#9A9490;
-  --a:#2D5A3D;--as:#E8F4EC;--am:#4A8A5D;
-  --k:#1A3A5C;--ks:#E6EEF7;--km:#3A6EA8;
-  --t:#7A3728;--ts:#F7EDE9;--tm:#C4654E;
-  --p:var(--k);--ps:var(--ks);--pm:var(--km);
-}
+:root{--bg:#F5F0E8;--surface:#FDFAF5;--border:#E0D8CC;--text:#1A1714;--mid:#5A5450;--light:#9A9490;--a:#2D5A3D;--as:#E8F4EC;--am:#4A8A5D;--k:#1A3A5C;--ks:#E6EEF7;--km:#3A6EA8;--t:#7A3728;--ts:#F7EDE9;--tm:#C4654E;--p:var(--k);--ps:var(--ks);--pm:var(--km);}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 body{font-family:'Atkinson Hyperlegible',sans-serif;background:#1E1A16;min-height:100vh;display:flex;flex-direction:column;align-items:center;}
-
-/* RESEARCHER BAR */
-.rbar{width:100%;max-width:400px;background:#111;display:flex;align-items:center;position:sticky;top:0;z-index:200;border-bottom:1px solid #2a2a2a;}
-.rl{color:#444;font-size:10px;padding:0 8px;letter-spacing:.8px;white-space:nowrap;}
-.rbar button{flex:1;padding:10px 4px;border:none;background:transparent;color:#555;font-size:11px;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;font-family:'Atkinson Hyperlegible',sans-serif;}
-.rbar button.active{color:#fff;border-bottom-color:#fff;}
-
-/* PHONE */
-.phone{width:100%;max-width:400px;min-height:calc(100vh - 44px);background:var(--surface);display:flex;flex-direction:column;}
-
-/* SCREENS */
-.screen{display:none;flex-direction:column;min-height:calc(100vh - 44px);animation:fu .22s ease;}
+.phone{width:100%;max-width:400px;min-height:100vh;background:var(--surface);display:flex;flex-direction:column;}
+.screen{display:none;flex-direction:column;min-height:100vh;animation:fu .22s ease;}
 .screen.active{display:flex;}
 @keyframes fu{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-
-/* LAYOUT */
 .top-bar{display:flex;align-items:center;padding:18px 24px 0;min-height:52px;}
 .back-btn{display:flex;align-items:center;gap:6px;background:none;border:none;cursor:pointer;color:var(--mid);font-family:'Atkinson Hyperlegible',sans-serif;font-size:17px;font-weight:700;min-height:44px;padding:4px 0;}
 .back-btn:active{opacity:.6;}
 .page-title{font-family:'Fraunces',serif;font-size:30px;font-weight:700;line-height:1.2;padding:16px 24px 4px;color:var(--p);}
 .page-sub{font-size:16px;color:var(--mid);line-height:1.5;padding:0 24px 4px;}
 .body{padding:18px 24px;flex:1;display:flex;flex-direction:column;gap:14px;overflow-y:auto;}
-
-/* CARDS */
 .card{background:var(--bg);border:1.5px solid var(--border);border-radius:18px;padding:18px 20px;}
 .ey{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--light);margin-bottom:8px;}
 .cbig{font-family:'Fraunces',serif;font-size:22px;font-weight:700;line-height:1.2;margin-bottom:5px;}
 .csub{font-size:15px;color:var(--mid);line-height:1.5;}
-
-/* HERO */
 .hero{border-radius:18px;padding:20px;position:relative;overflow:hidden;background:var(--ps);color:var(--p);}
 .hero::before{content:'';position:absolute;top:-24px;right:-24px;width:100px;height:100px;border-radius:50%;opacity:.1;background:currentColor;}
 .hi{font-size:34px;margin-bottom:8px;}
 .ht{font-family:'Fraunces',serif;font-size:21px;font-weight:700;line-height:1.2;margin-bottom:5px;}
 .hs{font-size:14px;line-height:1.5;opacity:.85;}
-
-/* ACTIVITY CARDS */
 .act-card{background:var(--surface);border:2px solid var(--border);border-radius:16px;padding:15px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .14s;min-height:68px;}
 .act-card:active{transform:scale(.98);}
 .act-card.sel{border-color:var(--p);border-width:2.5px;}
 .ai{font-size:28px;width:36px;text-align:center;flex-shrink:0;}
 .an{font-size:17px;font-weight:700;}
 .as2{font-size:13px;color:var(--light);margin-top:2px;}
-
-/* EXERCISE STEPS */
 .ex-step{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;gap:12px;}
 .sn{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;margin-top:2px;background:var(--ps);color:var(--p);}
 .st{font-size:15px;line-height:1.5;}
 .stip{font-size:13px;color:var(--mid);margin-top:3px;}
-
-/* TIME SUGGESTION BADGE */
 .time-badge{display:inline-flex;align-items:center;gap:6px;background:var(--p);color:#fff;border-radius:20px;padding:6px 14px;font-size:14px;font-weight:700;margin-bottom:12px;}
-
-/* PROGRESS */
 .pw{background:var(--border);border-radius:99px;height:9px;overflow:hidden;margin-top:10px;}
 .pf{height:100%;border-radius:99px;background:var(--pm);transition:width .8s ease;}
 .pl{display:flex;justify-content:space-between;font-size:11px;color:var(--light);margin-top:4px;}
-
-/* DAY DOTS */
 .dots{display:flex;gap:8px;margin-top:10px;}
 .dot{flex:1;border-radius:12px;padding:9px 6px;text-align:center;background:var(--border);}
 .dot.done{background:var(--ps);}
 .dl{font-size:10px;font-weight:700;letter-spacing:.5px;color:var(--light);}
 .dot.done .dl{color:var(--p);}
 .dv{font-size:16px;margin-top:2px;}
-
-/* SOCIAL */
 .members{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
 .mp{border-radius:20px;padding:6px 13px;font-size:14px;font-weight:700;color:var(--t);background:var(--ts);}
 .mp.you{background:var(--t);color:#fff;}
-
-/* REWARD BADGE (kompetens) */
-.reward{background:linear-gradient(135deg,var(--ks),#fff);border:2px solid var(--km);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin-top:0;}
+.reward{background:linear-gradient(135deg,var(--ks),#fff);border:2px solid var(--km);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;}
 .reward-icon{font-size:32px;flex-shrink:0;}
 .reward-txt{font-size:15px;font-weight:700;color:var(--k);line-height:1.4;}
 .reward-sub{font-size:13px;color:var(--km);margin-top:2px;}
-
-/* TOGGLES */
 .tog{display:flex;background:var(--border);border-radius:12px;overflow:hidden;margin-top:8px;}
 .tb{flex:1;min-height:48px;border:none;background:none;font-family:'Atkinson Hyperlegible',sans-serif;font-size:16px;font-weight:700;cursor:pointer;color:var(--mid);transition:all .14s;}
 .tb.sel{background:var(--p);color:#fff;}
-
-/* RATINGS */
-.rq{font-size:16px;font-weight:700;margin-bottom:9px;}
-.rrow{display:flex;gap:7px;}
-.rb{flex:1;min-height:56px;border:2px solid var(--border);border-radius:12px;background:var(--surface);font-size:19px;font-weight:700;cursor:pointer;color:var(--mid);transition:all .14s;font-family:'Atkinson Hyperlegible',sans-serif;}
-.rb.sel{background:var(--p);border-color:var(--p);color:#fff;}
-.rs{display:flex;justify-content:space-between;margin-top:4px;}
-.rs span{font-size:11px;color:var(--light);}
-
-/* INPUT */
 .ni{width:100%;padding:14px 16px;border:2px solid var(--border);border-radius:14px;font-family:'Fraunces',serif;font-size:36px;font-weight:700;text-align:center;background:var(--surface);color:var(--text);-webkit-appearance:none;margin-top:8px;}
 .ni:focus{outline:none;border-color:var(--pm);}
-.gi{flex:1;padding:14px 16px;border:2px solid var(--border);border-radius:14px;font-family:'Fraunces',serif;font-size:28px;font-weight:700;text-align:center;background:var(--surface);color:var(--text);-webkit-appearance:none;}
+.gi{padding:14px 16px;border:2px solid var(--border);border-radius:14px;font-family:'Fraunces',serif;font-size:28px;font-weight:700;text-align:center;background:var(--surface);color:var(--text);-webkit-appearance:none;}
 .gi:focus{outline:none;border-color:var(--pm);}
-
-/* BUTTONS */
 .ba{padding:14px 24px 28px;display:flex;flex-direction:column;gap:10px;margin-top:auto;}
 .btn{width:100%;min-height:62px;border:none;border-radius:16px;font-family:'Atkinson Hyperlegible',sans-serif;font-size:18px;font-weight:700;cursor:pointer;transition:all .14s;display:flex;align-items:center;justify-content:center;gap:8px;}
 .btn:active{transform:scale(.98);}
 .bp{color:#fff;background:var(--p);}
 .bo{background:transparent;border:2px solid var(--border);color:var(--mid);font-size:16px;min-height:54px;}
 .bg2{background:transparent;color:var(--light);font-size:15px;min-height:44px;text-decoration:underline;text-underline-offset:3px;}
-
-/* SAFETY */
 .safe{background:#FFFBEB;border:1.5px solid #FCD34D;border-radius:14px;padding:13px 15px;font-size:14px;color:#78350F;line-height:1.5;display:flex;gap:10px;}
-
-/* CODE SCREEN */
 .cs2{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;gap:20px;text-align:center;}
 .cs2 h1{font-family:'Fraunces',serif;font-size:32px;font-weight:700;color:var(--text);}
 .cs2 p{font-size:16px;color:var(--mid);line-height:1.5;}
 .bc{width:100%;padding:18px;border:2.5px solid var(--border);border-radius:16px;font-family:'Fraunces',serif;font-size:34px;font-weight:700;text-align:center;letter-spacing:6px;background:var(--surface);color:var(--text);-webkit-appearance:none;}
 .bc:focus{outline:none;border-color:var(--pm);}
-
-/* DONE */
 .dc{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:18px;text-align:center;}
 .de{font-size:68px;}
-
-/* OVERLAY */
 .ov{position:fixed;inset:0;background:rgba(20,18,15,.6);display:flex;align-items:center;justify-content:center;z-index:999;opacity:0;pointer-events:none;transition:opacity .2s;}
 .ov.show{opacity:1;pointer-events:all;}
 .ob{background:var(--surface);border-radius:20px;padding:28px;text-align:center;max-width:260px;}
 .sp{font-size:34px;display:inline-block;animation:spin 1s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .ob p{margin-top:12px;font-size:16px;font-weight:700;}
-
-/* VARIANT THEMING */
 .var-a{--p:var(--a);--ps:var(--as);--pm:var(--am);}
 .var-k{--p:var(--k);--ps:var(--ks);--pm:var(--km);}
 .var-t{--p:var(--t);--ps:var(--ts);--pm:var(--tm);}
-
-/* SURVEY */
-.si{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;}
-.siq{font-size:15px;font-weight:700;line-height:1.4;}
-.sisc{display:flex;gap:6px;}
-.sib{flex:1;min-height:50px;border:2px solid var(--border);border-radius:10px;background:var(--surface);font-size:17px;font-weight:700;cursor:pointer;color:var(--mid);font-family:'Atkinson Hyperlegible',sans-serif;transition:all .14s;}
-.sib.sel{background:var(--p);border-color:var(--p);color:#fff;}
-.sisl{display:flex;justify-content:space-between;margin-top:3px;}
-.sisl span{font-size:11px;color:var(--light);}
-.shdr{background:var(--ps);border-radius:12px;padding:10px 14px;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--p);margin-top:4px;}
-
-/* ENKÄT ALERT */
-.ea{background:var(--ps);border:1.5px solid var(--pm);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;}
-.ea:active{opacity:.8;}
-.eai{font-size:28px;flex-shrink:0;}
-.eat{font-size:16px;font-weight:700;color:var(--p);}
-.eas{font-size:13px;color:var(--mid);margin-top:2px;}
-.eaar{font-size:20px;color:var(--pm);margin-left:auto;flex-shrink:0;}
-
-.bh{text-align:center;font-size:10px;color:#444;padding:6px;background:#111;}
-
-/* INFO PILL */
-.info-pill{display:inline-flex;align-items:center;gap:6px;background:var(--border);border-radius:20px;padding:5px 12px;font-size:13px;color:var(--mid);font-weight:700;}
+.steg-btn{background:var(--surface);border:2.5px solid var(--border);border-radius:18px;padding:22px 20px;cursor:pointer;transition:all .14s;text-align:center;min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;}
+.steg-btn:active{transform:scale(.97);}
+.steg-btn .si2{font-size:36px;}
+.steg-btn .sn2{font-family:'Fraunces',serif;font-size:22px;font-weight:700;}
+.steg-btn .sd2{font-size:14px;color:var(--mid);}
+.int-card{background:var(--surface);border:2px solid var(--border);border-radius:14px;padding:14px 18px;cursor:pointer;transition:all .14s;display:flex;align-items:center;gap:12px;}
+.int-card:active{transform:scale(.98);}
+.int-card.sel{border-color:var(--p);border-width:2.5px;background:var(--ps);}
+.int-icon{font-size:24px;flex-shrink:0;}
+.int-label{font-size:16px;font-weight:700;}
+.int-desc{font-size:13px;color:var(--mid);margin-top:2px;}
 </style>
 </head>
 <body>
-
-<div class="rbar">
-  <button id="vbtn-a" onclick="setVariant('a')">🌿 STEG A</button>
-  <button id="vbtn-k" onclick="setVariant('k')">📈 STEG K</button>
-  <button id="vbtn-t" onclick="setVariant('t')">🤝 STEG T</button>
-</div>
-
 <div class="phone var-k" id="phone">
 
 <!-- KOD -->
 <div class="screen active" id="s_kod">
-  <div class="cs2">
-    <div style="font-size:52px;">🌿</div>
-    <h1>Välkommen!</h1>
-    <p>Ange din deltagarkod. Du har fått koden av forskaren.</p>
-    <input class="bc" id="ci" type="text" placeholder="P01" maxlength="4" autocomplete="off" oninput="this.value=this.value.toUpperCase()">
-    <button class="btn bp" style="width:100%;margin-top:4px;" onclick="startApp()">Starta →</button>
-    <p style="font-size:13px;color:var(--light);">Ingen kod? Kontakta forskaren.</p>
-  </div>
+<div class="cs2">
+<div style="font-size:52px;">🌿</div>
+<h1>Välkommen!</h1>
+<p>Ange din deltagarkod.<br>Du har fått koden av forskaren.</p>
+<input class="bc" id="ci" type="text" placeholder="P01" maxlength="4" autocomplete="off" oninput="this.value=this.value.toUpperCase()">
+<button class="btn bp" style="width:100%;margin-top:4px;" onclick="startApp()">Fortsätt →</button>
+<p style="font-size:13px;color:var(--light);">Ingen kod? Kontakta forskaren.</p>
+</div>
+</div>
+
+<!-- VÄLJ PERIOD -->
+<div class="screen" id="s_valj_steg">
+<div class="top-bar"></div>
+<div class="page-title" style="color:var(--text);">Vilken period?</div>
+<div class="page-sub">Tryck på den period du befinner dig i just nu.</div>
+<div class="body">
+<div class="steg-btn" onclick="pickPeriod(1)"><div class="si2">1️⃣</div><div class="sn2">Dag 1–3</div></div>
+<div class="steg-btn" onclick="pickPeriod(2)"><div class="si2">2️⃣</div><div class="sn2">Dag 4–6</div></div>
+<div class="steg-btn" onclick="pickPeriod(3)"><div class="si2">3️⃣</div><div class="sn2">Dag 7–9</div></div>
+<div class="card" style="background:#FFFBEB;border-color:#FCD34D;"><div class="csub" style="font-size:14px;color:#78350F;">💡 Osäker vilken dag du är på? Fråga forskaren.</div></div>
+</div>
 </div>
 
 <!-- HEM -->
 <div class="screen" id="s_hem">
-  <div class="top-bar"></div>
-  <div class="page-title">Idag</div>
-  <div class="body">
-    <div class="hero">
-      <div class="hi" id="h-icon">📈</div>
-      <div class="ht" id="h-title">Dagens mål: 30 minuter rörelse</div>
-      <div class="hs" id="h-sub">Lagom för att komma igång. Gör det i din takt.</div>
-    </div>
-    <div class="card" id="dag-card" style="display:none;padding:14px 18px;">
-      <div class="ey">Ditt framsteg detta block</div>
-      <div class="dots">
-        <div class="dot" id="dot-1"><div class="dl">PASS 1</div><div class="dv">–</div></div>
-        <div class="dot" id="dot-2"><div class="dl">PASS 2</div><div class="dv">–</div></div>
-        <div class="dot" id="dot-3"><div class="dl">PASS 3</div><div class="dv">–</div></div>
-      </div>
-    </div>
-    <div class="card" style="display:flex;align-items:center;gap:12px;padding:13px 18px;">
-      <span style="font-size:22px;">👤</span>
-      <div>
-        <div class="ey" style="margin-bottom:2px;">Din kod</div>
-        <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;" id="kod-vis">P01</div>
-      </div>
-      <div style="margin-left:auto;font-size:13px;color:var(--light);" id="pass-vis">Pass 1 av 3</div>
-    </div>
-  </div>
-  <div class="ba">
-    <button class="btn bp" onclick="go('s_akt')">Välj aktivitet →</button>
-    <button class="btn bo" onclick="go('s_hjalp')">Hjälp</button>
-  </div>
+<div class="top-bar"></div>
+<div class="page-title">Idag</div>
+<div class="body">
+<div class="hero"><div class="hi" id="h-icon">📈</div><div class="ht" id="h-title">Dagens mål</div><div class="hs" id="h-sub">Lagom för att komma igång.</div></div>
+<div id="hem-extra"></div>
+<div class="card" style="display:flex;align-items:center;gap:12px;padding:13px 18px;"><span style="font-size:22px;">👤</span><div><div class="ey" style="margin-bottom:2px;">Din kod</div><div style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;" id="kod-vis">P01</div></div><div style="margin-left:auto;font-size:13px;color:var(--light);" id="pass-vis">Pass 1 av 3</div></div>
+</div>
+<div class="ba">
+<button class="btn bp" id="hem-cta" onclick="go('s_akt')">Välj aktivitet →</button>
+<button class="btn bo" onclick="go('s_hjalp')">Hjälp</button>
+</div>
 </div>
 
 <!-- VÄLJ AKTIVITET -->
 <div class="screen" id="s_akt">
-  <div class="top-bar"><button class="back-btn" onclick="go('s_hem')">← Tillbaka</button></div>
-  <div class="page-title">Vad vill du göra?</div>
-  <div class="page-sub">Välj det som känns rätt idag.</div>
-  <div class="body">
-    <div class="act-card" onclick="valjAkt(this,'promenad','🚶','Promenad')">
-      <div class="ai">🚶</div><div><div class="an">Promenad</div><div class="as2">Ca 30 min · I din takt</div></div>
-    </div>
-    <div class="act-card" onclick="valjAkt(this,'styrka','💪','Styrkeövningar')">
-      <div class="ai">💪</div><div><div class="an">Styrkeövningar</div><div class="as2">Ca 30 min · Enkla hemmaövningar</div></div>
-    </div>
-    <div class="act-card" onclick="valjAkt(this,'stretch','🧘','Rörlighet & Stretch')">
-      <div class="ai">🧘</div><div><div class="an">Rörlighet &amp; Stretch</div><div class="as2">Ca 30 min · Lugnt och mjukt</div></div>
-    </div>
-    <!-- Enbart Autonomi (H1 – fler val) -->
-    <div class="act-card va-only" onclick="valjAkt(this,'eget','✏️','Eget val')" style="display:none;">
-      <div class="ai">✏️</div><div><div class="an">Eget val</div><div class="as2">Valfri aktivitet – du bestämmer helt</div></div>
-    </div>
-  </div>
+<div class="top-bar"><button class="back-btn" onclick="go('s_hem')">← Tillbaka</button></div>
+<div class="page-title" id="akt-title">Vad vill du göra?</div>
+<div class="page-sub" id="akt-sub">Välj det som känns rätt idag.</div>
+<div class="body" id="akt-body">
+<div class="act-card" onclick="valjAkt(this,'promenad','🚶','Promenad')"><div class="ai">🚶</div><div><div class="an">Promenad</div><div class="as2">Ca 30 min · I din takt</div></div></div>
+<div class="act-card" onclick="valjAkt(this,'styrka','💪','Styrkeövningar')"><div class="ai">💪</div><div><div class="an">Styrkeövningar</div><div class="as2">Ca 30 min · Enkla hemmaövningar</div></div></div>
+<div class="act-card" onclick="valjAkt(this,'stretch','🧘','Rörlighet &amp; Stretch')"><div class="ai">🧘</div><div><div class="an">Rörlighet &amp; Stretch</div><div class="as2">Ca 30 min · Lugnt och mjukt</div></div></div>
+<div class="act-card va-only" onclick="valjAkt(this,'eget','✏️','Eget val')" style="display:none;"><div class="ai">✏️</div><div><div class="an">Eget val</div><div class="as2">Valfri aktivitet – du bestämmer helt själv</div></div></div>
+</div>
 </div>
 
-<!-- PLAN (variant-specifik) -->
+<!-- PLAN -->
 <div class="screen" id="s_plan">
-  <div class="top-bar"><button class="back-btn" onclick="go('s_akt')">← Tillbaka</button></div>
-  <div class="page-title">Din plan idag</div>
-  <div class="body" id="plan-body"></div>
-  <div class="ba">
-    <button class="btn bp" onclick="go('s_ovn')">Jag är redo →</button>
-    <button class="btn bg2 va-only" onclick="go('s_vila')" style="display:none;">Idag tar jag det lugnt 🛋️</button>
-  </div>
+<div class="top-bar"><button class="back-btn" onclick="go('s_akt')">← Tillbaka</button></div>
+<div class="page-title" id="plan-title">Din plan idag</div>
+<div class="body" id="plan-body"></div>
+<div class="ba" id="plan-ba">
+<button class="btn bp" onclick="go('s_ovn')">Jag är redo →</button>
+<button class="btn bg2 va-only" onclick="go('s_vila')" style="display:none;">Idag tar jag det lugnt 🛋️</button>
+</div>
 </div>
 
 <!-- ÖVNINGSGUIDE -->
 <div class="screen" id="s_ovn">
-  <div class="top-bar"><button class="back-btn" onclick="go('s_plan')">← Tillbaka</button></div>
-  <div class="page-title" id="ovn-title">Övningsguide</div>
-  <div class="page-sub" id="ovn-sub">Gör övningarna i din takt. Ta pauser när du vill.</div>
-  <div class="body" id="ovn-body"></div>
-  <div class="ba">
-    <div class="safe">⚠️ Känn efter. Avbryt om du blir yr eller får ont.</div>
-    <button class="btn bp" style="margin-top:8px;" onclick="go('s_klar')">Jag är klar ✓</button>
-  </div>
+<div class="top-bar"><button class="back-btn" onclick="go('s_plan')">← Tillbaka</button></div>
+<div class="page-title" id="ovn-title">Övningsguide</div>
+<div class="page-sub" id="ovn-sub"></div>
+<div class="body" id="ovn-body"></div>
+<div class="ba">
+<div class="safe">⚠️ Känn efter. Avbryt om du blir yr eller får ont.</div>
+<button class="btn bp" style="margin-top:8px;" onclick="go('s_rapport')">Jag är klar ✓</button>
+</div>
 </div>
 
-<!-- KLART + FEEDBACK -->
-<div class="screen" id="s_klar">
-  <div class="top-bar"></div>
-  <div class="page-title">Bra jobbat! 🎉</div>
-  <div class="body">
-    <div class="hero">
-      <div class="hi" id="k-icon">⭐</div>
-      <div class="ht" id="k-title">Bra gjort!</div>
-      <div class="hs" id="k-sub">Du rörde på dig idag.</div>
-    </div>
-    <div id="klar-extra"></div>
-  </div>
-  <div class="ba">
-    <button class="btn bp" onclick="go('s_rapport')">Rapportera tid →</button>
-  </div>
-</div>
-
-<!-- RAPPORT (enkel tidrapportering) -->
+<!-- RAPPORT (nu FÖRE klart-skärmen) -->
 <div class="screen" id="s_rapport">
-  <div class="top-bar"><button class="back-btn" onclick="go('s_klar')">← Tillbaka</button></div>
-  <div class="page-title">Hur länge tränade du?</div>
-  <div class="page-sub">Ange ungefärligt antal minuter.</div>
-  <div class="body">
-    <div class="card"><div class="ey">Aktivitet</div><div class="cbig" id="rapp-akt">Promenad</div></div>
-    <div class="card">
-      <div class="ey">Träningsduration</div>
-      <input class="ni" id="min-in" type="number" placeholder="30" min="0" max="180" inputmode="numeric">
-      <div style="font-size:13px;color:var(--light);margin-top:6px;text-align:center;">minuter</div>
-    </div>
-    <div class="card" style="background:var(--ps);border-color:var(--pm);">
-      <div class="csub" style="font-size:14px;color:var(--p);">Det är allt för idag! Välkommen tillbaka imorgon.</div>
-    </div>
-  </div>
-  <div class="ba"><button class="btn bp" onclick="skickaRapport()">Skicka in →</button></div>
+<div class="top-bar"><button class="back-btn" onclick="go('s_ovn')">← Tillbaka</button></div>
+<div class="page-title">Hur länge tränade du?</div>
+<div class="page-sub">Ange ungefärligt antal minuter.</div>
+<div class="body">
+<div class="card"><div class="ey">Aktivitet</div><div class="cbig" id="rapp-akt">Promenad</div></div>
+<div class="card"><div class="ey">Träningsduration</div><input class="ni" id="min-in" type="number" placeholder="30" min="1" max="180" inputmode="numeric"><div style="font-size:13px;color:var(--light);margin-top:6px;text-align:center;">minuter</div></div>
+</div>
+<div class="ba"><button class="btn bp" onclick="skickaRapport()">Skicka in →</button></div>
 </div>
 
-<!-- TACK -->
-<div class="screen" id="s_tack">
-  <div class="dc">
-    <div class="de">✅</div>
-    <div style="width:100%;"><div class="card"><div class="cbig">Tack för idag!</div><div class="csub" id="tack-txt">Bra gjort!</div></div></div>
-    <div class="card" style="width:100%;"><div class="ey">Sammanfattning</div><div class="csub" id="summary"></div></div>
-  </div>
-  <div class="ba"><button class="btn bo" onclick="go('s_hem')">← Tillbaka till start</button></div>
+<!-- KLART + FEEDBACK (nu EFTER rapport, med faktisk data) -->
+<div class="screen" id="s_klar">
+<div class="top-bar"></div>
+<div class="page-title">Bra jobbat! 🎉</div>
+<div class="body">
+<div class="hero"><div class="hi" id="k-icon">⭐</div><div class="ht" id="k-title">Bra gjort!</div><div class="hs" id="k-sub">Du rörde på dig idag.</div></div>
+<div id="klar-extra"></div>
+<div class="card" style="width:100%;"><div class="ey">Sammanfattning</div><div class="csub" id="summary"></div></div>
+</div>
+<div class="ba"><button class="btn bo" onclick="go('s_hem')">← Tillbaka till start</button></div>
 </div>
 
-<!-- VILA (Autonomi) -->
+<!-- VILA -->
 <div class="screen" id="s_vila">
-  <div class="top-bar"><button class="back-btn" onclick="go('s_plan')">← Tillbaka</button></div>
-  <div class="page-title">Idag tar du det lugnt</div>
-  <div class="body">
-    <div style="font-size:52px;text-align:center;margin:14px 0;">🛋️</div>
-    <div class="hero"><div class="ht">Det är helt okej.</div><div class="hs" style="margin-top:5px;">Att lyssna på kroppen är klokt. Försök igen imorgon om du vill. Det är du som bestämmer.</div></div>
-  </div>
-  <div class="ba"><button class="btn bo" onclick="go('s_hem')">← Tillbaka till start</button></div>
+<div class="top-bar"><button class="back-btn" onclick="go('s_plan')">← Tillbaka</button></div>
+<div class="page-title">Idag tar du det lugnt</div>
+<div class="body">
+<div style="font-size:52px;text-align:center;margin:14px 0;">🛋️</div>
+<div class="hero"><div class="ht">Det är helt okej.</div><div class="hs" style="margin-top:5px;">Att lyssna på kroppen är klokt. Du bestämmer själv – och det valet är lika värdefullt. Försök igen imorgon om du vill.</div></div>
+</div>
+<div class="ba"><button class="btn bo" onclick="go('s_hem')">← Tillbaka till start</button></div>
 </div>
 
 <!-- HJÄLP -->
 <div class="screen" id="s_hjalp">
-  <div class="top-bar"><button class="back-btn" onclick="go('s_hem')">← Tillbaka</button></div>
-  <div class="page-title">Hjälp</div>
-  <div class="body">
-    <div class="card"><div class="ey">Om studien</div><div class="csub">Du kan avbryta när som helst utan att förklara varför. Det finns inga rätt eller fel svar.</div></div>
-    <div class="card"><div class="ey">Träningsduration</div><div class="csub">Ange ungefärligt antal minuter. Det behöver inte vara exakt.</div></div>
-    <div class="card"><div class="ey">Frågor?</div><div class="csub">Kontakta forskaren direkt med kontaktuppgifterna du fått.</div></div>
-  </div>
-  <div class="ba"><button class="btn bo" onclick="go('s_hem')">← Tillbaka</button></div>
+<div class="top-bar"><button class="back-btn" onclick="go('s_hem')">← Tillbaka</button></div>
+<div class="page-title" style="color:var(--text);">Hjälp</div>
+<div class="body">
+<div class="card"><div class="ey">Vad ska jag göra?</div><div class="csub">1. Välj en aktivitet.<br>2. Följ övningsguiden.<br>3. Tryck "Jag är klar" när du är färdig.<br>4. Ange hur många minuter du tränade.<br>5. Klart! Kom tillbaka imorgon.</div></div>
+<div class="card"><div class="ey">Om studien</div><div class="csub">Du deltar i en studie om rörelse. Du kan avbryta när som helst utan att förklara varför.</div></div>
+<div class="card"><div class="ey">Frågor?</div><div class="csub">Kontakta forskaren direkt med kontaktuppgifterna du fått.</div></div>
+</div>
+<div class="ba"><button class="btn bo" onclick="go('s_hem')">← Tillbaka</button></div>
 </div>
 
 </div>
-
 <div class="ov" id="overlay"><div class="ob"><span class="sp">⏳</span><p>Skickar...</p></div></div>
 
 <script>
@@ -349,341 +232,329 @@ const SU='https://script.google.com/macros/s/AKfycby8rsPv55X-DOPbbKbzdXwsHCSYEpn
 let pid='',variant='k',sid=Date.now().toString(36);
 let cs='s_kod',st=Date.now();
 let act={id:'promenad',icon:'🚶',name:'Promenad'};
+let selectedIntensity='lugnt';
+let goalMinutes=30;
+let reportedMinutes=0;
 
-// ═══════════════════════════════════════════════════
-// EXERCISES – ca 30 min vardera, äldresäkra
-// ═══════════════════════════════════════════════════
 const EX={
-  promenad:{
-    tid:'Ca 30 min',
-    steps:[
-      {n:1,t:'Värm upp 5 min: Gå lugnt och rör på armarna.',tip:'Du kan börja inomhus och gå ut när kroppen är varm.'},
-      {n:2,t:'Promenera i normal takt i 20 min.',tip:'Håll ett tempo där du kan prata utan att bli andfådd.'},
-      {n:3,t:'Varianter att testa: gå lite snabbare i 2 min, sedan lugnt igen. Upprepa 3–4 gånger.',tip:'Intervallgång är skonsamt och effektivt för äldre.'},
-      {n:4,t:'Varva ner 5 min: Gå lugnt och andas djupt.',tip:'Känn efter hur kroppen mår.'}
-    ]
-  },
-  styrka:{
-    tid:'Ca 30 min',
-    steps:[
-      {n:1,t:'Värm upp 5 min: Gå på stället och rör på armarna.',tip:'Lite lätt rörelse räcker för att värma upp.'},
-      {n:2,t:'Stolsresningar (3×10 ggr): Sitt på stol, res dig utan händerna, sätt dig ner.',tip:'Vila 1 min mellan varje serie. Tränar ben och sätesmuskler.'},
-      {n:3,t:'Armhävningar mot vägg (3×10 ggr): Stå en bit från väggen och gör armhävningar mot den.',tip:'Anpassa avståndet – ju längre från väggen, desto svårare.'},
-      {n:4,t:'Tåhävningar (3×12 ggr): Stå vid köksbänk, håll lätt i kanten och lyft upp på tå.',tip:'Gör det lugnt och kontrollerat. Stärker vristerna.'},
-      {n:5,t:'Knäböj mot stol (3×8 ggr): Stå framför stolen, böj knäna som om du ska sätta dig – men res dig igen.',tip:'Håll ryggen rak. Om det är svårt – sätt dig ner och res dig upp istället.'},
-      {n:6,t:'Varva ner 5 min med djupa andetag och lätta stretchrörelser.',tip:'Skaka lätt på händerna och vristen.'}
-    ]
-  },
-  stretch:{
-    tid:'Ca 30 min',
-    steps:[
-      {n:1,t:'Nackrörelser (2 min): Vänd långsamt huvudet åt höger och vänster, 10 ggr per håll.',tip:'Håll 5 sek per sida. Gör det lugnt – aldrig med ryck.'},
-      {n:2,t:'Axelrullningar (2 min): Rulla axlarna framåt 10 ggr och bakåt 10 ggr.',tip:'Andas ut när du rullar bakåt.'},
-      {n:3,t:'Bröststräck (30 sek): Knäpp händerna bakom ryggen och lyft armarna lätt.',tip:'Du ska känna ett skönt drag i bröstet.'},
-      {n:4,t:'Sidosträck stående (30 sek/sida): Sträck en arm upp och luta dig lätt åt sidan.',tip:'Håll i en stol för balansen om du vill.'},
-      {n:5,t:'Höftböjarsträck (45 sek/sida): Stå vid en stol, ta ett steg bakåt och pressa höften framåt.',tip:'Du ska känna det fram i höften.'},
-      {n:6,t:'Vadstretch (45 sek/sida): Stå vid väggen, ena foten bakåt med rakt ben.',tip:'Känn sträcket i vaden – ska vara skönt, inte smärta.'},
-      {n:7,t:'Sittande framåtböj (30 sek): Sitt på stolkant, böj dig lätt framåt mot golvet.',tip:'Slappna av i nacken. Andas ut när du böjer dig.'},
-      {n:8,t:'Avsluta med 5 djupa andetag. Andas in 4 sek – håll 2 sek – andas ut 6 sek.',tip:'Bra jobbat!'}
-    ]
-  },
-  eget:{
-    tid:'Valfri tid',
-    steps:[
-      {n:1,t:'Välj en aktivitet som känns rätt för dig idag.',tip:'Det kan vara vad som helst – dans, trädgårdsarbete, cykling, stavgång...'},
-      {n:2,t:'Sikta på ca 30 minuter, men gör det som känns bra just idag.',tip:'Du bestämmer tempo och intensitet helt själv.'},
-      {n:3,t:'Lyssna på kroppen och ta pauser när du behöver.',tip:'Avbryt om du känner obehag.'}
-    ]
-  }
+promenad:{tid:'Ca 30 min',steps:[
+{n:1,t:'Värm upp 5 min: Gå lugnt och rör på armarna.',tip:'Du kan börja inomhus och gå ut när kroppen är varm.'},
+{n:2,t:'Promenera i normal takt i 20 min.',tip:'Håll ett tempo där du kan prata utan att bli andfådd.'},
+{n:3,t:'Varianter att testa: gå lite snabbare i 2 min, sedan lugnt igen. Upprepa 3–4 gånger.',tip:'Intervallgång är skonsamt och effektivt.'},
+{n:4,t:'Varva ner 5 min: Gå lugnt och andas djupt.',tip:'Känn efter hur kroppen mår.'}]},
+styrka:{tid:'Ca 30 min',steps:[
+{n:1,t:'Värm upp 5 min: Gå på stället och rör på armarna.',tip:'Lite lätt rörelse räcker för att värma upp.'},
+{n:2,t:'Stolsresningar (3×10): Sitt på stol, res dig utan händerna.',tip:'Vila 1 min mellan varje serie.'},
+{n:3,t:'Armhävningar mot vägg (3×10): Stå en bit från väggen.',tip:'Anpassa avståndet efter din nivå.'},
+{n:4,t:'Tåhävningar (3×12): Stå vid köksbänk, lyft upp på tå.',tip:'Gör det lugnt och kontrollerat.'},
+{n:5,t:'Knäböj mot stol (3×8): Böj knäna som om du ska sätta dig.',tip:'Håll ryggen rak.'},
+{n:6,t:'Varva ner 5 min med djupa andetag.',tip:'Skaka lätt på händerna.'}]},
+stretch:{tid:'Ca 30 min',steps:[
+{n:1,t:'Nackrörelser (2 min): Vänd huvudet åt höger och vänster.',tip:'Håll 5 sek per sida. Aldrig med ryck.'},
+{n:2,t:'Axelrullningar (2 min): Rulla framåt och bakåt 10 ggr.',tip:'Andas ut när du rullar bakåt.'},
+{n:3,t:'Bröststräck (30 sek): Knäpp händerna bakom ryggen.',tip:'Skönt drag i bröstet.'},
+{n:4,t:'Sidosträck (30 sek/sida): Sträck en arm upp, luta åt sidan.',tip:'Håll i en stol om du vill.'},
+{n:5,t:'Höftböjarsträck (45 sek/sida): Steg bakåt, pressa höften framåt.',tip:'Känn det fram i höften.'},
+{n:6,t:'Vadstretch (45 sek/sida): Ena foten bakåt med rakt ben.',tip:'Ska vara skönt, inte smärta.'},
+{n:7,t:'Sittande framåtböj (30 sek): Sitt på stolkant, böj framåt.',tip:'Slappna av i nacken.'},
+{n:8,t:'Avsluta med 5 djupa andetag.',tip:'Bra jobbat!'}]},
+eget:{tid:'Valfri tid',steps:[
+{n:1,t:'Välj en aktivitet som känns rätt för dig idag.',tip:'Det kan vara vad som helst – dans, trädgårdsarbete, cykling...'},
+{n:2,t:'Sikta på ca 30 minuter, men gör det som känns bra.',tip:'Du bestämmer tempo och intensitet helt själv.'},
+{n:3,t:'Lyssna på kroppen och ta pauser när du behöver.',tip:'Avbryt om du känner obehag.'}]}
 };
 
-// ═══════════════════════════════════════════════════
-// VARIANT CONFIG
-// Baserat på Wu et al. (2024) heuristik-toolkit:
-// A: H1 (fler val), H2 (flexibilitet), H4 (upplevd användbarhet)
-// K: H7 (minska börda), H10 (schema/mål), H11 (belöning), H8 (visualisering)
-// T: H12 (digital inkludering), H13 (social interaktivitet), H14 (identitet)
-// ═══════════════════════════════════════════════════
+// Wu et al. (2024) heuristik-toolkit (SDT)
+// A: H1 fler val, H2 flexibilitet, H3 integritet, H4 nytta
+// K: H7 minska börda, H8 visualisering, H10 schema, H11 belöning
+// T: H12 inkludering, H13 social interaktivitet, H14 identitet, H15 delning
 const VC={
-  a:{
-    hi:'🌿', ht:'Du väljer själv idag',
-    hs:'Välj aktivitet, tempo och mål som passar dig. Det är du som bestämmer – det finns inget rätt eller fel.',
-    kt:'Bra att du gjorde ditt val!',
-    ks:'Du rörde på dig på ditt eget sätt och i din egen takt. Det är det som räknas – du bestämde själv.',
-    ki:'🌿'
-  },
-  k:{
-    hi:'📈', ht:'Dagens mål: 30 minuter rörelse',
-    hs:'Ett tydligt mål hjälper dig hålla fokus. Varje pass du genomför visar att du kan och bygger vidare på det du redan klarat.',
-    kt:'Du klarade passet!',
-    ks:'Du satte ett mål och nådde det. Varje genomfört pass visar din förmåga – du blir starkare för varje gång.',
-    ki:'🏆'
-  },
-  t:{
-    hi:'🤝', ht:'Gruppen tränar idag!',
-    hs:'Du är en del av Rörelsegänget. Varje minut du rör på dig bidrar till ert gemensamma mål – ni gör detta tillsammans.',
-    kt:'Tack – du hjälpte gruppen framåt!',
-    ks:'Gruppen är starkare med dig. Ni stöttar varandra och ingen tränar ensam. Heja er! 🙌',
-    ki:'🤝'
-  }
+a:{hi:'🌿',ht:'Det är du som bestämmer idag',
+hs:'Här finns inga krav, bara möjligheter. Välj fritt vad du vill göra, hur länge och i vilken takt.',
+kt:'Ditt val, ditt sätt!',ks:'Du valde själv vad du ville göra och hur – det är den bästa sortens rörelse.',ki:'🌿'},
+k:{hi:'📈',ht:'Dagens mål: 30 minuter',
+hs:'Du har ett tydligt mål. Varje pass du genomför bygger vidare på dina framsteg – steg för steg.',
+kt:'Du klarade ditt mål!',ks:'30 minuter – klart! Du satte ett mål och nådde det. Det visar att du kan.',ki:'🏆'},
+t:{hi:'🤝',ht:'Gruppen tränar idag!',
+hs:'Du är en del av Rörelsegänget. Varje minut du rör på dig bidrar till ert gemensamma mål.',
+kt:'Tack – du hjälpte gruppen!',ks:'Gruppen är starkare med dig. Ni stöttar varandra och ingen tränar ensam. 🙌',ki:'🤝'}
 };
 
-// ═══════════════════════════════════════════════════
-// NAVIGATION
-// ═══════════════════════════════════════════════════
 function go(id){
-  track('exit');
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  cs=id; st=Date.now(); track('enter');
-  window.scrollTo(0,0);
-  if(id==='s_hem') renderHem();
-  if(id==='s_plan') renderPlan();
-  if(id==='s_ovn') renderOvn();
-  if(id==='s_klar') renderKlar();
+track('exit');
+document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+cs=id;st=Date.now();track('enter');window.scrollTo(0,0);
+if(id==='s_hem')renderHem();
+if(id==='s_akt')renderAkt();
+if(id==='s_plan')renderPlan();
+if(id==='s_ovn')renderOvn();
+if(id==='s_rapport'){document.getElementById('rapp-akt').textContent=act.name;document.getElementById('min-in').value='';}
+if(id==='s_klar')renderKlar();
 }
 
 function setVariant(v){
-  variant=v;
-  ['a','k','t'].forEach(x=>document.getElementById('vbtn-'+x).classList.toggle('active',x===v));
-  document.getElementById('phone').className='phone var-'+v;
-  document.querySelectorAll('.va-only').forEach(el=>el.style.display=v==='a'?'':'none');
+variant=v;
+document.getElementById('phone').className='phone var-'+v;
+document.querySelectorAll('.va-only').forEach(el=>el.style.display=v==='a'?'':'none');
 }
 
 function startApp(){
-  const raw=document.getElementById('ci').value.trim().toUpperCase();
-  if(!raw||raw.length<2){alert('Ange din kod, t.ex. P01');return;}
-  pid=raw; track('session_start'); go('s_hem');
+const raw=document.getElementById('ci').value.trim().toUpperCase();
+if(!raw||raw.length<2){alert('Ange din kod, t.ex. P01');return;}
+pid=raw;sid=Date.now().toString(36);track('session_start');retrySend();
+document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+document.getElementById('s_valj_steg').classList.add('active');
+cs='s_valj_steg';st=Date.now();
 }
 
-// ═══════════════════════════════════════════════════
-// RENDERS
-// ═══════════════════════════════════════════════════
-function renderHem(){
-  const cfg=VC[variant];
-  document.getElementById('h-icon').textContent=cfg.hi;
-  document.getElementById('h-title').textContent=cfg.ht;
-  document.getElementById('h-sub').textContent=cfg.hs;
-  document.getElementById('kod-vis').textContent=pid;
-  const passes=getPasses(); const cur=getCurrentPass();
-  document.getElementById('pass-vis').textContent='Pass '+cur+' av 3';
-  const dc=document.getElementById('dag-card');
-  dc.style.display=variant==='k'?'':'none';
-  if(variant==='k'){
-    [1,2,3].forEach((d,i)=>{
-      const dot=document.getElementById('dot-'+d);
-      dot.className='dot'+(passes[i]?' done':'');
-      dot.querySelector('.dv').textContent=passes[i]?'✓':(i+1===cur?'▶':'–');
-    });
-  }
+function pickVariant(v){setVariant(v);go('s_hem');}
+
+// Latin square: variant order determined by participant number
+// P01,P04,P07... (num%3==1) → A K T
+// P02,P05,P08... (num%3==2) → K T A
+// P03,P06,P09... (num%3==0) → T A K
+const LATIN=[
+  ['t','a','k'], // group 0 (P03,P06,P09,P12,P15,P18,P21,P24,P27,P30)
+  ['a','k','t'], // group 1 (P01,P04,P07,P10,P13,P16,P19,P22,P25,P28)
+  ['k','t','a']  // group 2 (P02,P05,P08,P11,P14,P17,P20,P23,P26,P29)
+];
+
+function getSeqGroup(){
+  const num=parseInt(pid.replace(/\D/g,''))||1;
+  return num%3; // 0, 1, or 2
 }
+
+function pickPeriod(period){
+  const group=getSeqGroup();
+  const v=LATIN[group][period-1];
+  setVariant(v);
+  go('s_hem');
+}
+
+function renderHem(){
+const cfg=VC[variant];
+document.getElementById('h-icon').textContent=cfg.hi;
+document.getElementById('h-title').textContent=cfg.ht;
+document.getElementById('h-sub').textContent=cfg.hs;
+document.getElementById('kod-vis').textContent=pid;
+const passes=getPasses(),cur=getCurrentPass();
+document.getElementById('pass-vis').textContent='Pass '+cur+' av 3';
+const extra=document.getElementById('hem-extra');
+const cta=document.getElementById('hem-cta');
+if(variant==='a'){
+cta.textContent='Välj vad du vill göra →';
+extra.innerHTML='<div class="card" style="background:var(--as);border-color:var(--am);"><div class="csub" style="color:var(--a);font-size:15px;">🌿 <b>Idag bestämmer du allt.</b> Vilken aktivitet, hur länge, i vilken takt. Du kan till och med välja att vila – det är också ett val.</div></div>';
+}else if(variant==='k'){
+cta.textContent='Starta dagens pass →';
+const d=passes.filter(Boolean).length;
+extra.innerHTML='<div class="card" style="padding:14px 18px;"><div class="ey">Din utveckling</div><div class="dots">'+[1,2,3].map((n,i)=>'<div class="dot '+(passes[i]?'done':'')+'"><div class="dl">DAG '+n+'</div><div class="dv">'+(passes[i]?'✓':(i+1===cur?'▶':'–'))+'</div></div>').join('')+'</div><div class="pw" style="margin-top:12px;"><div class="pf" style="width:'+Math.round(d/3*100)+'%;"></div></div><div class="pl"><span>'+d+' av 3 pass klara</span><span>'+Math.round(d/3*100)+'%</span></div></div>';
+}else{
+cta.textContent='Välj aktivitet →';
+extra.innerHTML='<div class="card" style="background:var(--ts);border-color:var(--tm);"><div class="csub" style="color:var(--t);font-size:15px;">👥 Rörelsegänget väntar på dig! Anna, Bertil och Carin tränar också – ni gör det ihop.</div></div>';
+}}
+
+function renderAkt(){
+if(variant==='a'){
+document.getElementById('akt-title').textContent='Vad vill du göra idag?';
+document.getElementById('akt-sub').textContent='Här finns flera alternativ – men det är bara du som vet vad som passar. Välj fritt!';
+}else if(variant==='k'){
+document.getElementById('akt-title').textContent='Välj din aktivitet';
+document.getElementById('akt-sub').textContent='Välj en aktivitet och genomför ditt 30-minuterspass.';
+}else{
+document.getElementById('akt-title').textContent='Vad vill du göra?';
+document.getElementById('akt-sub').textContent='Välj det som känns rätt. De andra i gruppen gör också sin aktivitet!';
+}}
 
 function renderPlan(){
-  const b=document.getElementById('plan-body');
-  const ex=EX[act.id]||EX.promenad;
+const b=document.getElementById('plan-body');
+const ex=EX[act.id]||EX.promenad;
+if(variant==='a'){
+document.getElementById('plan-title').textContent='Ditt pass, dina regler';
+b.innerHTML=`
+<div class="hero"><div class="hi">🌿</div><div class="ht">Anpassa passet precis som du vill</div><div class="hs">Allt nedan är förslag – inget är ett krav. Du bestämmer själv vad som passar just idag.</div></div>
+<div class="card"><div class="ey">Vill du sätta ett tidsmål? (valfritt)</div><div class="tog"><button class="tb sel" onclick="toggleSel(this);document.getElementById('goal-section').style.display=''">Ja, jag väljer ett mål</button><button class="tb" onclick="toggleSel(this);document.getElementById('goal-section').style.display='none'">Nej tack, jag kör fritt</button></div></div>
+<div id="goal-section"><div class="card" style="margin-top:14px;"><div class="ey">Mitt mål i minuter</div><div style="display:flex;gap:10px;margin-top:10px;align-items:center;"><input class="gi" id="goal-in" type="number" placeholder="30" min="1" inputmode="numeric" style="max-width:120px;"><div style="font-size:16px;font-weight:700;color:var(--mid);">minuter</div></div><div class="csub" style="font-size:13px;margin-top:8px;">💡 Förslag: ca ${ex.tid} – men du kan välja precis så mycket eller lite du vill.</div></div></div>
+<div class="card"><div class="ey">Hur vill du lägga upp det?</div><div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;"><div class="int-card sel" onclick="selInt(this)"><div class="int-icon">🐢</div><div><div class="int-label">Lugnt och stilla</div><div class="int-desc">Låg intensitet, fokus på att röra sig</div></div></div><div class="int-card" onclick="selInt(this)"><div class="int-icon">🚶</div><div><div class="int-label">Lagom tempo</div><div class="int-desc">Normal ansträngning</div></div></div><div class="int-card" onclick="selInt(this)"><div class="int-icon">⚡</div><div><div class="int-label">Lite mer utmanande</div><div class="int-desc">Tar i lite extra idag</div></div></div></div></div>
+<div class="card" style="background:var(--as);border-color:var(--am);"><div class="csub" style="color:var(--a);font-size:15px;">🌿 <b>Kom ihåg:</b> Det här är din tid. Du kan byta aktivitet, ändra mål, eller sluta när du vill. Inga krav – bara dina val.</div></div>`;
+}else if(variant==='k'){
+document.getElementById('plan-title').textContent='Ditt mål idag';
+const passes=getPasses(),d=passes.filter(Boolean).length;
+const fm=d===0?'Det här är ditt första pass. Du har allt som behövs – sätt igång!':d===1?'Du klarade gårdagens pass! Nu bygger du vidare.':'Fantastiskt – 2 av 3 klara! Sista passet. Du vet att du kan.';
+b.innerHTML=`
+<div class="hero"><div class="hi">📈</div><div class="ht">Mål: 30 minuter ${act.name.toLowerCase()}</div><div class="hs">${fm}</div></div>
+<div class="card"><div class="ey">Så här gör du</div><div style="display:flex;flex-direction:column;gap:10px;margin-top:6px;"><div style="display:flex;gap:10px;align-items:center;"><div class="sn">1</div><div class="st">Följ övningsguiden på nästa sida</div></div><div style="display:flex;gap:10px;align-items:center;"><div class="sn">2</div><div class="st">Tryck "Jag är klar" när du är färdig</div></div><div style="display:flex;gap:10px;align-items:center;"><div class="sn">3</div><div class="st">Ange hur lång tid det tog</div></div></div></div>
+<div class="card"><div class="ey">Dagens mål</div><div style="font-family:'Fraunces',serif;font-size:42px;font-weight:700;color:var(--k);margin:4px 0;">30 min</div><div class="pw"><div class="pf" style="width:0%;"></div></div><div class="pl"><span>Start</span><span>Mål: 30 min</span></div></div>
+<div class="card"><div class="ey">Din utveckling (3 pass totalt)</div><div class="dots">${[1,2,3].map((n,i)=>`<div class="dot ${passes[i]?'done':''}"><div class="dl">DAG ${n}</div><div class="dv">${passes[i]?'✓':'–'}</div></div>`).join('')}</div></div>
+<div class="card" style="background:var(--ks);border-color:var(--km);"><div class="csub" style="color:var(--k);font-size:15px;">💪 <b>Du klarar detta.</b> Varje genomfört pass visar att du har förmågan. Fokus, genomför, klar!</div></div>`;
+}else{
+document.getElementById('plan-title').textContent='Gruppens plan idag';
+const gG=90,gD=getGroupDone(),pct=Math.round(gD/gG*100);
+const msgs=['Anna avslutade en promenad nyss – bra jobbat Anna!','Bertil siktar på styrkeövningar idag.','Carin hejar på dig: "Vi fixar det tillsammans!"'];
+b.innerHTML=`
+<div class="hero"><div class="hi">🤝</div><div class="ht">Ni tränar tillsammans idag!</div><div class="hs">Du är en del av en grupp som stöttar varandra. Varje minut räknas!</div></div>
+<div class="card"><div class="ey">Din grupp – "Rörelsegänget"</div><div class="members"><div class="mp you">👤 Du</div><div class="mp">👤 Anna, 68</div><div class="mp">👤 Bertil, 72</div><div class="mp">👤 Carin, 70</div></div><div class="csub" style="margin-top:10px;">Ni tränar hemma var och en – men ni gör det tillsammans!</div></div>
+<div class="card" style="background:var(--ts);border-color:var(--tm);"><div class="csub" style="color:var(--t);font-size:14px;">💬 ${msgs[Math.floor(Math.random()*msgs.length)]}</div></div>
+<div class="card"><div class="ey">Gemensamt mål: ${gG} minuter</div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;font-weight:700;"><span>${gD} av ${gG} min klara</span><span style="color:var(--t);">${pct}%</span></div><div class="pw"><div class="pf" style="width:${pct}%;"></div></div><div class="csub" style="margin-top:8px;">Gruppen behöver ${gG-gD} minuter till. Ditt bidrag gör skillnad!</div></div>`;
+}}
 
-  if(variant==='a'){
-    // H1: Empower users with more choices – fler val, anpassning
-    // H2: Define boundaries – flexibilitet, inga tvingande mål
-    // H4: Enhance perceived usefulness – meningsfullt upplägg
-    // H3: Protect user privacy – ingen press, ingen jämförelse
-    b.innerHTML=`
-      <div class="hero">
-        <div class="hi">🌿</div>
-        <div class="ht">Du bestämmer idag</div>
-        <div class="hs">Det här är din tid. Du väljer vad som passar dig – tempo, längd och upplägg. Det finns inget rätt eller fel.</div>
-      </div>
-      <div class="card">
-        <div class="ey">Vill du sätta ett mål?</div>
-        <div class="tog"><button class="tb sel" onclick="toggleSel(this)">Ja, jag sätter ett mål</button><button class="tb" onclick="toggleSel(this)">Nej, tar det som det blir</button></div>
-      </div>
-      <div class="card">
-        <div class="ey">Mitt mål i minuter</div>
-        <div style="display:flex;gap:10px;margin-top:10px;align-items:center;">
-          <input class="gi" id="goal-in" type="number" placeholder="30" min="1" inputmode="numeric" style="max-width:120px;">
-          <div style="font-size:16px;font-weight:700;color:var(--mid);">minuter</div>
-        </div>
-      </div>
-      <div class="card" style="background:var(--as);border-color:var(--am);">
-        <div class="csub" style="color:var(--a);font-size:14px;">💡 Förslag: <b>ca ${ex.tid}</b> är ett bra riktmärke – men du väljer helt fritt. Du kan ändra dig när som helst.</div>
-      </div>
-      <div class="card">
-        <div class="csub" style="font-size:14px;">🌿 Kom ihåg: det är du som styr. Anpassa passet precis som du vill – kortare, längre, snabbare, lugnare. Allt är okej.</div>
-      </div>`;
-  } else if(variant==='k'){
-    // H7: Reduce user burden – tydlig struktur, enkelt
-    // H8: Data visualization – progressbar, visuell historik
-    // H10: Provide a list of schedules – tydliga mål och steg
-    // H11: Build reward mechanism – belöning, feedback
-    // H9: Contextual adaptability – anpassad feedback
-    const passes=getPasses();
-    const donePasses=passes.filter(Boolean).length;
-    const feedbackMsg=donePasses===0?'Första passet väntar – du klarar detta!':donePasses===1?'Bra start! Du har visat att du kan. 1 av 3 klara.':'Imponerande! 2 av 3 klara – sista steget kvar!';
-    b.innerHTML=`
-      <div class="hero">
-        <div class="hi">📈</div>
-        <div class="ht">Dagens mål: 30 minuter rörelse</div>
-        <div class="hs">Tydliga mål hjälper dig se dina framsteg. Du bygger vidare på det du redan klarat.</div>
-      </div>
-      <div class="card">
-        <div class="ey">Ditt mål idag</div>
-        <div style="font-family:'Fraunces',serif;font-size:36px;font-weight:700;color:var(--k);margin:4px 0;">30 min</div>
-        <div class="pw"><div class="pf" style="width:0%;"></div></div>
-        <div class="pl"><span>0 min</span><span>30 min</span></div>
-      </div>
-      <div class="card">
-        <div class="ey">Din utveckling detta block</div>
-        <div class="dots">${[1,2,3].map((d,i)=>`<div class="dot ${passes[i]?'done':''}"><div class="dl">DAG ${d}</div><div class="dv">${passes[i]?'✓':'–'}</div></div>`).join('')}</div>
-        <div class="csub" style="margin-top:9px;">${feedbackMsg}</div>
-      </div>
-      <div class="card" style="background:var(--ks);border-color:var(--km);">
-        <div class="csub" style="color:var(--k);font-size:14px;">💪 Varje genomfört pass stärker dig. Du har kunskapen och förmågan – nu handlar det bara om att göra det.</div>
-      </div>`;
-  } else {
-    // H12: Enhance digital inclusion – alla kan delta, inkluderande
-    // H13: Enhance social interactivity – grupp, uppmuntran, stöd
-    // H14: Improve worker identity – du hör till, gemensam identitet
-    // H15: Reinforce information sharing – transparens, delad info
-    const groupGoal=90, groupDone=54;
-    const pct=Math.round(groupDone/groupGoal*100);
-    const msgs=['Anna avslutade en promenad nyss – bra jobbat Anna!','Bertil siktar på styrkeövningar idag.','Carin hejar på dig: "Vi fixar det tillsammans!"'];
-    const todayMsg=msgs[Math.floor(Math.random()*msgs.length)];
-    b.innerHTML=`
-      <div class="hero">
-        <div class="hi">🤝</div>
-        <div class="ht">Ni tränar tillsammans idag!</div>
-        <div class="hs">Du är en del av en grupp som stöttar varandra. Varje minut du rör på dig bidrar till ert gemensamma mål.</div>
-      </div>
-      <div class="card">
-        <div class="ey">Din grupp – "Rörelsegänget"</div>
-        <div class="members">
-          <div class="mp you">👤 Du</div>
-          <div class="mp">👤 Anna, 68</div>
-          <div class="mp">👤 Bertil, 72</div>
-          <div class="mp">👤 Carin, 70</div>
-        </div>
-        <div class="csub" style="margin-top:10px;">Ni tränar hemma var och en – men ni gör det tillsammans. Du är inte ensam!</div>
-      </div>
-      <div class="card" style="background:var(--ts);border-color:var(--tm);">
-        <div class="csub" style="color:var(--t);font-size:14px;">💬 ${todayMsg}</div>
-      </div>
-      <div class="card">
-        <div class="ey">Gemensamt mål: ${groupGoal} minuter</div>
-        <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;font-weight:700;">
-          <span>${groupDone} av ${groupGoal} min klara</span><span style="color:var(--t);">${pct}%</span>
-        </div>
-        <div class="pw"><div class="pf" style="width:${pct}%;"></div></div>
-        <div class="csub" style="margin-top:8px;">Gruppen behöver ${groupGoal-groupDone} minuter till. Ditt bidrag gör skillnad för alla!</div>
-      </div>`;
+function renderOvn(){
+const ex=EX[act.id]||EX.promenad;
+document.getElementById('ovn-title').textContent=act.name;
+
+// For Autonomi: read goal time if set
+if(variant==='a'){
+  const gi=document.getElementById('goal-in');
+  if(gi&&gi.value)goalMinutes=parseInt(gi.value)||30;
+  else goalMinutes=30;
+}else{goalMinutes=30;}
+
+const durLabel=variant==='a'?'Ca '+goalMinutes+' min':ex.tid;
+const sub={
+  a:'Gör det i din takt, på ditt sätt. Hoppa över moment om du vill. · '+durLabel,
+  k:'Följ stegen nedan mot ditt mål på 30 min. Du klarar detta! · '+durLabel,
+  t:'Medan du tränar gör de andra i gruppen detsamma. Ni gör det ihop! · '+durLabel
+};
+document.getElementById('ovn-sub').textContent=sub[variant]||durLabel;
+
+// Adapt exercise instructions based on intensity (Autonomi) or keep standard
+let steps=ex.steps;
+if(variant==='a'&&act.id!=='eget'){
+  const scale=goalMinutes/30; // ratio vs default 30 min
+  if(selectedIntensity==='lugnt'){
+    steps=steps.map(s=>({...s,
+      t:s.t.replace(/(\d+) min/g,(m,n)=>Math.max(1,Math.round(parseInt(n)*scale))+' min')
+           .replace(/(\d+)×(\d+)/g,(m,sets,reps)=>Math.max(1,parseInt(sets)-1)+'×'+Math.max(3,parseInt(reps)-3))
+           .replace(/(\d+) ggr/g,(m,n)=>Math.max(3,Math.round(parseInt(n)*0.7))+' ggr'),
+      tip:'🐢 Ta det lugnt. '+s.tip
+    }));
+  }else if(selectedIntensity==='utmanande'){
+    steps=steps.map(s=>({...s,
+      t:s.t.replace(/(\d+) min/g,(m,n)=>Math.max(1,Math.round(parseInt(n)*scale))+' min')
+           .replace(/(\d+)×(\d+)/g,(m,sets,reps)=>(parseInt(sets)+1)+'×'+(parseInt(reps)+2))
+           .replace(/(\d+) ggr/g,(m,n)=>Math.round(parseInt(n)*1.3)+' ggr'),
+      tip:'⚡ Utmana dig! '+s.tip
+    }));
+  }else{
+    steps=steps.map(s=>({...s,
+      t:s.t.replace(/(\d+) min(?!ut)/g,(m,n)=>Math.max(1,Math.round(parseInt(n)*scale))+' min')
+    }));
   }
 }
 
-function renderOvn(){
-  const ex=EX[act.id]||EX.promenad;
-  document.getElementById('ovn-title').textContent=act.name;
-  // Variant-specific sub-text for SDT framing
-  const subTexts={
-    a:'Gör det i din takt, på ditt sätt. Anpassa som du vill. · '+ex.tid,
-    k:'Följ stegen nedan mot ditt mål. Du klarar detta! · '+ex.tid,
-    t:'Medan du tränar gör de andra i gruppen detsamma. Ni gör det ihop! · '+ex.tid
-  };
-  document.getElementById('ovn-sub').textContent=subTexts[variant]||'Gör i din takt. Ta pauser när du vill. · '+ex.tid;
-  document.getElementById('ovn-body').innerHTML=
-    `<div class="time-badge">⏱ Förslag: ${ex.tid}</div>`+
-    ex.steps.map(s=>
-      `<div class="ex-step"><div class="sn">${s.n}</div><div><div class="st">${s.t}</div><div class="stip">💡 ${s.tip}</div></div></div>`
-    ).join('');
+document.getElementById('ovn-body').innerHTML=
+'<div class="time-badge">⏱ Målsättning: '+durLabel+'</div>'+
+steps.map(s=>'<div class="ex-step"><div class="sn">'+s.n+'</div><div><div class="st">'+s.t+'</div><div class="stip">💡 '+s.tip+'</div></div></div>').join('');
+document.getElementById('rapp-akt').textContent=act.name;
 }
 
 function renderKlar(){
-  const cfg=VC[variant];
-  document.getElementById('k-icon').textContent=cfg.ki;
-  document.getElementById('k-title').textContent=cfg.kt;
-  document.getElementById('k-sub').textContent=cfg.ks;
-  const ex=document.getElementById('klar-extra');
-  if(variant==='a'){
-    // H1/H2: Autonomi-feedback – bekräfta deras val
-    ex.innerHTML=`
-      <div class="card" style="background:var(--as);border-color:var(--am);">
-        <div class="csub" style="color:var(--a);font-size:14px;">🌿 Du valde själv vad du ville göra, hur och hur länge. Det är den bästa formen av rörelse – den som passar just dig.</div>
-      </div>`;
-  } else if(variant==='k'){
-    // H11: belöningsmekanismer – tydlig kompetens-feedback
-    ex.innerHTML=`
-      <div class="reward">
-        <div class="reward-icon">🏅</div>
-        <div>
-          <div class="reward-txt">Pass ${getCurrentPass()} av 3 klart!</div>
-          <div class="reward-sub">Du satte ett mål och nådde det – det visar din styrka.</div>
-        </div>
-      </div>
-      <div class="card"><div class="ey">Ditt mål</div><div class="pw"><div class="pf" style="width:100%;"></div></div><div class="pl"><span>Klart!</span><span>✓</span></div></div>`;
-  } else if(variant==='t'){
-    // H13/H14: social feedback – stärk tillhörighet
-    ex.innerHTML=`
-      <div class="card">
-        <div class="ey">Gruppens totala bidrag</div>
-        <div class="pw"><div class="pf" style="width:88%;"></div></div>
-        <div class="pl"><span>79 av 90 min</span><span>🏁 Nästan klart!</span></div>
-        <div class="csub" style="margin-top:8px;">Du tog gruppen ett stort steg närmre målet!</div>
-      </div>
-      <div class="card" style="background:var(--ts);border-color:var(--tm);">
-        <div class="csub" style="color:var(--t);font-size:14px;">💬 Anna säger: "Bra jobbat! Vi är snart framme tillsammans."</div>
-      </div>`;
-  } else {
-    ex.innerHTML='';
-  }
-  document.getElementById('rapp-akt').textContent=act.name;
+const cfg=VC[variant];
+document.getElementById('k-icon').textContent=cfg.ki;
+document.getElementById('k-title').textContent=cfg.kt;
+document.getElementById('k-sub').textContent=cfg.ks;
+const done=getPasses().filter(Boolean).length;
+document.getElementById('summary').innerHTML='Aktivitet: <b>'+act.name+'</b><br>Duration: <b>'+reportedMinutes+' minuter</b><br>Pass <b>'+done+' av 3</b> klart'+(done<3?'<br><br>Vi ses imorgon!':'<br><br>🎉 Alla 3 pass klara för detta block!');
+const ex=document.getElementById('klar-extra');
+if(variant==='a'){
+ex.innerHTML='<div class="card" style="background:var(--as);border-color:var(--am);"><div class="csub" style="color:var(--a);font-size:15px;">🌿 Du valde själv vad du ville göra, hur länge och i vilken takt. Det är den bästa sortens rörelse – den som passar just dig.</div></div>';
+}else if(variant==='k'){
+const goalMet=reportedMinutes>=30;
+const pct=Math.min(100,Math.round(reportedMinutes/30*100));
+const p=done;
+ex.innerHTML='<div class="reward"><div class="reward-icon">'+(goalMet?'🏅':'👏')+'</div><div><div class="reward-txt">Pass '+p+' av 3 klart!</div><div class="reward-sub">'+(goalMet?'Du nådde ditt mål på 30 minuter!':'Du tränade '+reportedMinutes+' minuter – bra att du rörde på dig!')+'</div></div></div><div class="card"><div class="ey">Ditt mål: 30 min</div><div class="pw"><div class="pf" style="width:'+pct+'%;"></div></div><div class="pl"><span>'+reportedMinutes+' min</span><span>'+(goalMet?'✓ Mål nått!':pct+'%')+'</span></div></div>'+(done<3?'<div class="card" style="background:var(--ks);border-color:var(--km);"><div class="csub" style="color:var(--k);font-size:14px;">💪 Fortsätt så! Nästa pass väntar imorgon.</div></div>':'<div class="card" style="background:var(--ks);border-color:var(--km);"><div class="csub" style="color:var(--k);font-size:14px;">🎉 Alla 3 pass klara! Imponerande uthållighet.</div></div>');
+}else if(variant==='t'){
+const gD=getGroupDone();
+ex.innerHTML='<div class="card"><div class="ey">Gruppens totala bidrag</div><div class="pw"><div class="pf" style="width:'+Math.min(100,Math.round((gD+reportedMinutes)/90*100))+'%;"></div></div><div class="pl"><span>'+(gD+reportedMinutes)+' av 90 min</span><span>'+(gD+reportedMinutes>=90?'✓ Mål nått!':'🏁 Nästan klart!')+'</span></div><div class="csub" style="margin-top:8px;">Du bidrog med '+reportedMinutes+' minuter – tack!</div></div><div class="card" style="background:var(--ts);border-color:var(--tm);"><div class="csub" style="color:var(--t);font-size:14px;">💬 Anna säger: "Bra jobbat! Vi är snart framme tillsammans."</div></div>';
+}else{ex.innerHTML='';}
 }
 
-// ═══════════════════════════════════════════════════
-// HELPERS
-// ═══════════════════════════════════════════════════
 function valjAkt(card,id,icon,name){
-  document.querySelectorAll('.act-card').forEach(c=>c.classList.remove('sel'));
-  card.classList.add('sel'); act={id,icon,name};
-  track('activity_selected');
-  setTimeout(()=>go('s_plan'),160);
+document.querySelectorAll('.act-card').forEach(c=>c.classList.remove('sel'));
+card.classList.add('sel');act={id,icon,name};
+track('activity_selected');
+setTimeout(()=>go('s_plan'),160);
 }
 function toggleSel(btn){btn.parentElement.querySelectorAll('.tb').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
-
-// ═══════════════════════════════════════════════════
-// DATA SUBMIT
-// ═══════════════════════════════════════════════════
-function skickaRapport(){
-  const mins=document.getElementById('min-in').value||'0';
-  document.getElementById('overlay').classList.add('show');
-  const curPass=getCurrentPass();
-  const blk=getBlockNumber();
-  const pl={participant_id:pid,variant:variant.toUpperCase(),event_type:'session_report',screen:'s_rapport',activity:act.name,minutes:parseInt(mins)||0,session_number:curPass,session_id:sid,block_number:blk,steps_or_minutes:'min:'+mins,feel_rating:'',motiv_rating:''};
-  fetch(SU,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(pl)}).catch(()=>{}).finally(()=>{
-    setTimeout(()=>{
-      document.getElementById('overlay').classList.remove('show');
-      markPassDone();
-      const done=getPasses().filter(Boolean).length;
-      document.getElementById('summary').innerHTML=`Aktivitet: <b>${act.name}</b><br>Duration: <b>${mins} minuter</b><br>Pass <b>${done} av 3</b> klart`;
-      document.getElementById('tack-txt').textContent=done<3?'Bra gjort! Vi ses imorgon.':'Alla 3 pass klara för detta block! Bra jobbat.';
-      go('s_tack');
-    },1000);
-  });
+function selInt(card){document.querySelectorAll('.int-card').forEach(c=>c.classList.remove('sel'));card.classList.add('sel');
+const labels=['lugnt','lagom','utmanande'];
+const idx=[...document.querySelectorAll('.int-card')].indexOf(card);
+selectedIntensity=labels[idx]||'lugnt';
 }
 
-// ═══════════════════════════════════════════════════
-// STATE / TRACKING
-// ═══════════════════════════════════════════════════
+function skickaRapport(){
+const mins=document.getElementById('min-in').value;
+if(!mins||parseInt(mins)<=0){alert('Fyll i hur många minuter du tränade.');return;}
+reportedMinutes=parseInt(mins);
+document.getElementById('overlay').classList.add('show');
+const curPass=getCurrentPass(),blk=getBlockNumber();
+const pl={participant_id:pid,variant:variant.toUpperCase(),event_type:'session_report',screen:'s_rapport',activity:act.name,minutes:reportedMinutes,session_number:curPass,session_id:sid,block_number:blk,steps_or_minutes:'min:'+mins,feel_rating:'',motiv_rating:'',intensity:variant==='a'?selectedIntensity:'',goal_minutes:variant==='a'?goalMinutes:30};
+sendData(pl).finally(()=>{
+setTimeout(()=>{
+document.getElementById('overlay').classList.remove('show');
+markPassDone();
+go('s_klar');
+},1000);
+});
+}
+
 function getKey(){return pid+'_'+variant+'_p';}
 function getPasses(){try{const r=localStorage.getItem(getKey());return r?JSON.parse(r):[false,false,false];}catch(e){return[false,false,false];}}
 function getCurrentPass(){return Math.min(getPasses().filter(Boolean).length+1,3);}
 function markPassDone(){const d=getPasses();const i=d.findIndex(x=>!x);if(i>=0)d[i]=true;try{localStorage.setItem(getKey(),JSON.stringify(d));}catch(e){}}
-function getBlockNumber(){return{a:1,k:2,t:3}[variant]||1;}
 
-function track(et,extra={}){
-  if(!pid)return;
-  fetch(SU,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({participant_id:pid,variant:variant.toUpperCase(),event_type:et,screen:cs,activity:act.name,time_on_screen_sec:Math.round((Date.now()-st)/1000),session_id:sid,block_number:getBlockNumber(),steps_or_minutes:'',feel_rating:'',motiv_rating:'',minutes:'',session_number:getCurrentPass(),...extra})}).catch(()=>{});
+// Block_nr = chronological order (1st variant used = 1, 2nd = 2, 3rd = 3)
+function getBlockNumber(){
+  const key=pid+'_block_order';
+  let order=[];
+  try{const r=localStorage.getItem(key);if(r)order=JSON.parse(r);}catch(e){}
+  const idx=order.indexOf(variant);
+  if(idx>=0)return idx+1;
+  order.push(variant);
+  try{localStorage.setItem(key,JSON.stringify(order));}catch(e){}
+  return order.length;
 }
 
-setVariant('k');
-document.addEventListener('visibilitychange',()=>{if(pid)track(document.hidden?'app_bg':'app_fg');});
+// Randomized group progress for Tillhörighet (seeded per day+pid)
+function getGroupDone(){
+  const today=new Date().toISOString().slice(0,10);
+  let h=0;for(let i=0;i<(pid+today).length;i++){h=((h<<5)-h)+(pid+today).charCodeAt(i);h|=0;}
+  return 40+Math.abs(h%26); // 40–65 range
+}
+
+function sendData(pl){
+  return fetch(SU,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(pl)})
+  .catch(()=>{
+    try{
+      let q=JSON.parse(localStorage.getItem(pid+'_offline_queue')||'[]');
+      q.push(pl);
+      localStorage.setItem(pid+'_offline_queue',JSON.stringify(q));
+    }catch(e){}
+  });
+}
+
+function retrySend(){
+  if(!pid)return;
+  try{
+    const key=pid+'_offline_queue';
+    const q=JSON.parse(localStorage.getItem(key)||'[]');
+    if(q.length===0)return;
+    const batch=[...q];
+    localStorage.setItem(key,'[]');
+    batch.forEach(pl=>{
+      fetch(SU,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(pl)}).catch(()=>{
+        try{let q2=JSON.parse(localStorage.getItem(key)||'[]');q2.push(pl);localStorage.setItem(key,JSON.stringify(q2));}catch(e){}
+      });
+    });
+  }catch(e){}
+}
+
+function track(et,extra={}){
+if(!pid)return;
+sendData({participant_id:pid,variant:variant.toUpperCase(),event_type:et,screen:cs,activity:act.name,time_on_screen_sec:Math.round((Date.now()-st)/1000),session_id:sid,block_number:getBlockNumber(),steps_or_minutes:'',feel_rating:'',motiv_rating:'',minutes:'',session_number:getCurrentPass(),...extra});
+}
+
+document.addEventListener('visibilitychange',()=>{if(pid){track(document.hidden?'app_bg':'app_fg');if(!document.hidden)retrySend();}});
 </script>
 </body>
 </html>
